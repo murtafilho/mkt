@@ -1,0 +1,308 @@
+/**
+ * Modern Search Bar - Marketplace 2025 Standards
+ * Inspirado em: Amazon, Mercado Livre, Shopify
+ */
+
+.search-form {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+
+    .input-group-lg {
+        position: relative;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 50rem; // Pill shape (tendência 2025)
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        background: white;
+
+        &:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        &:focus-within {
+            box-shadow: 0 4px 20px rgba($primary, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .form-control {
+            border: none;
+            padding: 0.625rem 1.5rem; // Altura 44px (padrão WCAG)
+            padding-right: 3.5rem; // Espaço para ícone de loading
+            font-size: 1rem;
+            background-color: transparent;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 0;
+            border-radius: 50rem 0 0 50rem;
+            height: 44px;
+
+            &:focus {
+                box-shadow: none;
+                outline: none;
+                background-color: transparent;
+            }
+
+            &::placeholder {
+                color: $gray-500;
+                font-weight: $font-weight-normal;
+            }
+        }
+
+        .btn-primary {
+            border: none;
+            padding: 0.625rem 1.75rem; // Altura 44px (alinhado)
+            font-weight: $font-weight-semibold;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            white-space: nowrap;
+            color: #ffffff !important;
+            background-color: $primary;
+            border-radius: 0 50rem 50rem 0;
+            min-width: 100px;
+            height: 44px;
+
+            &:hover {
+                color: #ffffff !important;
+                background-color: darken($primary, 8%);
+                transform: scale(1.02);
+            }
+
+            &:focus {
+                color: #ffffff !important;
+                background-color: darken($primary, 8%);
+                box-shadow: 0 0 0 4px rgba($primary, 0.2);
+            }
+
+            &:active {
+                color: #ffffff !important;
+                background-color: darken($primary, 12%);
+                transform: scale(0.98);
+            }
+
+            i {
+                font-size: 1.125rem;
+            }
+        }
+    }
+
+    // Autocomplete Suggestions (Dropdown moderno)
+    .search-suggestions {
+        position: absolute;
+        top: calc(100% + 0.75rem);
+        left: 0;
+        right: 0;
+        z-index: 1050;
+        max-height: 500px;
+        overflow-y: auto;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        animation: slideDown 0.2s ease-out;
+
+        .list-group {
+            margin-bottom: 0;
+            border-radius: 1rem;
+        }
+
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid $gray-100;
+            transition: all 0.2s ease;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+
+            &:first-child {
+                border-radius: 1rem 1rem 0 0;
+            }
+
+            &:last-child {
+                border-bottom: none;
+                border-radius: 0 0 1rem 1rem;
+            }
+
+            &:hover {
+                background-color: rgba($primary, 0.05);
+                padding-left: 1.5rem;
+
+                .fw-medium {
+                    color: $primary;
+                }
+            }
+
+            &.bg-light {
+                background-color: $gray-100 !important;
+                pointer-events: none;
+                padding: 0.5rem 1.25rem;
+
+                small {
+                    text-transform: uppercase;
+                    letter-spacing: 0.8px;
+                    font-weight: $font-weight-bold;
+                    font-size: 0.75rem;
+                    color: $gray-600;
+                }
+            }
+
+            img {
+                border-radius: 0.5rem;
+                object-fit: cover;
+                border: 1px solid $gray-200;
+            }
+
+            .fw-medium {
+                font-weight: $font-weight-medium;
+                color: $dark;
+                transition: color 0.2s ease;
+                font-size: 0.9375rem;
+            }
+
+            .text-primary {
+                font-weight: $font-weight-bold;
+                font-size: 0.9375rem;
+            }
+
+            small {
+                color: $gray-600;
+            }
+
+            .bi-shop {
+                color: $primary;
+                font-size: 1.125rem;
+            }
+
+            .bi-geo-alt {
+                color: $secondary;
+                font-size: 0.875rem;
+            }
+        }
+    }
+
+    // Loading State
+    .search-loading {
+        pointer-events: none;
+
+        .spinner-border {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-width: 2px;
+        }
+    }
+}
+
+// Animation
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+ * Quick Search Badge (tendência 2025)
+ */
+.search-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    background: rgba($primary, 0.1);
+    color: $primary;
+    border-radius: 50rem;
+    font-size: 0.8125rem;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba($primary, 0.2);
+        transform: scale(1.05);
+    }
+
+    i {
+        font-size: 0.75rem;
+    }
+}
+
+/**
+ * Mobile Optimizations
+ */
+@media (max-width: 991.98px) {
+    .search-form {
+        .input-group-lg {
+            border-radius: 50rem;
+
+            .form-control {
+                font-size: 0.9375rem;
+                padding: 0.875rem 1.25rem;
+                padding-right: 3rem;
+            }
+
+            .btn-primary {
+                padding: 0.875rem 1.25rem;
+                min-width: auto;
+
+                span {
+                    display: none !important;
+                }
+
+                i {
+                    margin: 0 !important;
+                }
+            }
+        }
+
+        .search-suggestions {
+            border-radius: 0.75rem;
+
+            .list-group-item {
+                padding: 0.75rem 1rem;
+
+                img {
+                    width: 40px !important;
+                    height: 40px !important;
+                }
+
+                .fw-medium {
+                    font-size: 0.875rem;
+                }
+
+                small {
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Top Bar (informações de localização)
+ */
+.top-bar {
+    background-color: $gray-100;
+    border-bottom: 1px solid $gray-200;
+    padding: 0.5rem 0;
+
+    a {
+        color: $gray-700;
+        font-weight: $font-weight-medium;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .bi-geo-alt {
+        color: $primary;
+    }
+}

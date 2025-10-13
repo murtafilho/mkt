@@ -1,0 +1,333 @@
+/**
+ * Vale do Sol Marketplace - Main Stylesheet
+ * Bootstrap 5.3.3 + Custom Variables
+ */
+
+// 1. Import Custom Variables (BEFORE Bootstrap)
+@import 'variables';
+
+// 2. Import Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// 3. Import Bootstrap Icons
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// 4. Import Fonts (Figtree via @fontsource)
+@import '@fontsource/figtree/400.css';
+@import '@fontsource/figtree/500.css';
+@import '@fontsource/figtree/600.css';
+
+// 5. Import Cropper.js
+@import 'cropperjs/dist/cropper.css';
+
+// 6. Import Custom Components
+@import 'components/header';
+@import 'components/hero';
+@import 'components/categories';
+@import 'components/search';
+@import 'components/product-card';
+@import 'components/auth';
+@import 'components/modern-forms';
+
+// ==============================================================================
+// CUSTOM STYLES - Vale do Sol
+// ==============================================================================
+
+/**
+ * Global Utilities
+ */
+.hover-lift {
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $box-shadow-lg !important;
+    }
+}
+
+.hover-scale {
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/**
+ * Buttons Customization - 2025 Modern Trends
+ * - Flat design em repouso (sem sombras)
+ * - Hover com elevação sutil (translateY + box-shadow)
+ * - Border-radius 8px-12px
+ * - Padding 12px 24px (médio)
+ * - Transições suaves 0.3s
+ * - Touch targets mínimo 48x48px
+ */
+
+.btn {
+    font-weight: $font-weight-medium;
+    transition: all 0.3s ease; // 0.3s mais suave que 0.15s
+    border-width: 1.5px; // Borda levemente mais grossa
+    box-shadow: none; // Sem sombra em repouso (flat design)
+    min-height: 48px; // Touch target mínimo (Material Design)
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:hover {
+        transform: translateY(-2px); // Elevação sutil
+        box-shadow: $btn-box-shadow-hover; // Sombra apenas no hover
+    }
+
+    &:active {
+        transform: translateY(0); // Remove elevação no clique
+        box-shadow: $btn-box-shadow-active; // Sombra menor no clique
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba($primary, 0.2); // Focus ring mais visível
+    }
+
+    // Ícones dentro de botões
+    i,
+    svg {
+        flex-shrink: 0;
+    }
+}
+
+// Primary Button - Verde Mata
+.btn-primary {
+    background-color: $primary;
+    border-color: $primary;
+    color: white;
+
+    &:hover {
+        background: linear-gradient(135deg, $primary 0%, darken($primary, 8%) 100%); // Gradiente sutil no hover
+        border-color: darken($primary, 8%);
+        color: white;
+    }
+
+    &:active {
+        background-color: darken($primary, 12%);
+        border-color: darken($primary, 12%);
+    }
+}
+
+// Outline Primary - Borda Verde
+.btn-outline-primary {
+    border-color: $primary;
+    color: $primary;
+    background: transparent;
+
+    &:hover {
+        background-color: $primary;
+        border-color: $primary;
+        color: white;
+    }
+
+    &:active {
+        background-color: darken($primary, 8%);
+        border-color: darken($primary, 8%);
+    }
+}
+
+// Secondary Button - Terracota
+.btn-secondary {
+    &:hover {
+        background: linear-gradient(135deg, $secondary 0%, darken($secondary, 8%) 100%);
+        border-color: darken($secondary, 8%);
+    }
+}
+
+.btn-outline-secondary {
+    &:hover {
+        background-color: $secondary;
+        border-color: $secondary;
+    }
+}
+
+// Warning Button - Dourado
+.btn-warning {
+    &:hover {
+        background: linear-gradient(135deg, $warning 0%, darken($warning, 8%) 100%);
+        border-color: darken($warning, 8%);
+    }
+}
+
+// Dark Button
+.btn-dark {
+    &:hover {
+        background: linear-gradient(135deg, $dark 0%, lighten($dark, 10%) 100%);
+    }
+}
+
+// Light Button
+.btn-light {
+    &:hover {
+        background-color: darken($light, 5%);
+        border-color: darken($light, 5%);
+    }
+}
+
+// Tamanhos - Touch Targets
+.btn-sm {
+    min-height: 40px; // Touch target menor mas ainda acessível
+    font-size: 0.875rem;
+}
+
+.btn-lg {
+    min-height: 56px; // Touch target maior para CTAs
+    font-size: 1.125rem;
+}
+
+// Botão Full Width
+.btn-block {
+    display: flex;
+    width: 100%;
+}
+
+/**
+ * Cards Customization
+ */
+.card {
+    border: none;
+    box-shadow: $box-shadow-sm;
+    transition: all 0.3s ease;
+
+    &:hover {
+        box-shadow: $box-shadow;
+    }
+}
+
+/**
+ * Navbar Customization
+ */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+    font-weight: $font-weight-bold;
+    font-size: 1.5rem;
+    color: $primary !important;
+
+    &:hover {
+        color: darken($primary, 10%) !important;
+    }
+}
+
+.nav-link {
+    font-weight: $font-weight-medium;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: $primary !important;
+    }
+
+    &.active {
+        color: $primary !important;
+        font-weight: $font-weight-semibold;
+    }
+}
+
+/**
+ * Badges
+ */
+.badge {
+    font-weight: $font-weight-medium;
+    padding: 0.375rem 0.75rem;
+}
+
+/**
+ * Forms
+ */
+.form-control,
+.form-select {
+    border-radius: $border-radius;
+    border-color: #dee2e6;
+
+    &:focus {
+        border-color: $primary;
+        box-shadow: 0 0 0 0.25rem rgba($primary, 0.15);
+    }
+}
+
+/**
+ * Offcanvas Cart
+ */
+.offcanvas {
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Footer
+ */
+footer {
+    background-color: $dark;
+    color: white;
+
+    a {
+        color: rgba(white, 0.75);
+        text-decoration: none;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+/**
+ * Animations
+ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/**
+ * Mobile Optimizations
+ */
+@media (max-width: 767.98px) {
+    .btn-lg {
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .lead {
+        font-size: 1.125rem;
+    }
+}
+
+/**
+ * Print Styles
+ */
+@media print {
+
+    .navbar,
+    .footer,
+    .offcanvas,
+    .modal,
+    .toast {
+        display: none !important;
+    }
+}

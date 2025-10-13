@@ -1,0 +1,35 @@
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+/.cursor
+.DS_Store
+Thumbs.db
+
+# Laravel Dusk
+.env.dusk.local
+tests/Browser/console/
+tests/Browser/screenshots/
+tests/Browser/source/
+
+# Laravel IDE Helper
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# Claude MCP settings with sensitive tokens
+.claude/

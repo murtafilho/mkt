@@ -1,0 +1,112 @@
+/**
+ * Categories Grid - Vale do Sol
+ */
+
+.categories-section {
+    .category-card {
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: $box-shadow-sm;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: $box-shadow-lg;
+
+            .category-icon {
+                color: $primary;
+                transform: scale(1.1);
+            }
+        }
+
+        .category-icon {
+            transition: all 0.3s ease;
+            color: $secondary;
+            font-size: 3rem;
+        }
+
+        .card-title {
+            color: $dark;
+            font-weight: $font-weight-semibold;
+            font-size: 1.125rem;
+        }
+
+        small {
+            color: $gray-600;
+        }
+    }
+}
+
+/**
+ * Mega Menu
+ */
+.mega-menu {
+    position: static;
+
+    .mega-dropdown {
+        width: 100%;
+        max-width: 1140px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: $border-radius;
+        border: none;
+        margin-top: 0.5rem;
+
+        .dropdown-header {
+            color: $dark;
+            font-weight: $font-weight-semibold;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+
+            a {
+                color: $dark;
+                text-decoration: none;
+
+                &:hover {
+                    color: $primary;
+                }
+            }
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 0.75rem;
+            border-radius: $border-radius-sm;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: rgba($primary, 0.1);
+                color: $primary;
+                padding-left: 1rem;
+            }
+        }
+    }
+}
+
+/**
+ * Category Page
+ */
+.subcategories-chips {
+    .btn {
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: $primary;
+            border-color: $primary;
+            color: white;
+            transform: translateY(-2px);
+        }
+    }
+}
+
+/**
+ * Mobile
+ */
+@media (max-width: 991.98px) {
+    .mega-menu {
+        .mega-dropdown {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            transform: none;
+        }
+    }
+}

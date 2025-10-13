@@ -1,0 +1,650 @@
+/**
+ * Header & Navigation - Vale do Sol
+ */
+
+/**
+ * Top Bar
+ */
+.top-bar {
+    background-color: $gray-100;
+    border-bottom: 1px solid $gray-200;
+    padding: 0.5rem 0;
+
+    a {
+        color: $gray-700;
+        font-weight: $font-weight-medium;
+        transition: color 0.2s ease;
+        font-size: 0.875rem;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .bi-geo-alt {
+        color: $primary;
+    }
+
+    small {
+        font-size: 0.875rem;
+    }
+}
+
+
+/**
+ * Main Header (Sticky) - Minimalista 2025
+ * Background e shadow centralizados no SCSS
+ */
+header.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+
+    &.scrolled {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.header-content {
+    padding: 1.25rem 0; // Otimizado
+
+    @media (max-width: 991.98px) {
+        padding: 1rem 0;
+    }
+
+    @media (max-width: 767.98px) {
+        padding: 0.875rem 0;
+    }
+
+    // Otimizar espaçamento das colunas
+    >div {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+
+        @media (min-width: 992px) {
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+/**
+ * Navbar Brand (Logo) - Compacto 2025
+ */
+.navbar-brand {
+    font-weight: $font-weight-bold;
+    font-size: 1.375rem; // Reduzido de 1.5rem
+    color: $primary !important;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding-right: 0;
+
+    &:hover {
+        color: darken($primary, 10%) !important;
+    }
+
+    .bi-sun {
+        color: $warning;
+        font-size: 1.5rem; // Reduzido de 1.75rem
+        flex-shrink: 0;
+    }
+}
+
+/**
+ * Navigation Menu (Categorias)
+ */
+.navbar.navbar-light {
+    background-color: $gray-100;
+    border-top: 1px solid $gray-200;
+}
+
+/**
+ * Navigation Links
+ */
+.navbar-nav {
+    .nav-link {
+        font-weight: $font-weight-medium;
+        transition: color 0.2s ease;
+        padding: 0.5rem 1rem;
+
+        i {
+            color: $secondary;
+            transition: color 0.2s ease;
+        }
+
+        &:hover {
+            color: $primary !important;
+
+            i {
+                color: $primary;
+            }
+        }
+
+        &.active {
+            color: $primary !important;
+            font-weight: $font-weight-semibold;
+
+            i {
+                color: $primary;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: $box-shadow-lg;
+        border-radius: 0.75rem; // 12px - Dropdown moderno
+        margin-top: 0.5rem;
+
+        .dropdown-item {
+            padding: 0.625rem 1.25rem;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: rgba($primary, 0.1);
+                color: $primary;
+                padding-left: 1.5rem;
+            }
+
+            &:active {
+                background-color: rgba($primary, 0.2);
+            }
+        }
+
+        .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+    }
+}
+
+/**
+ * User Actions Buttons - Distribuição Equilibrada 2025
+ */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem; // Espaçamento consistente entre elementos
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    width: 100%;
+
+    @media (max-width: 991.98px) {
+        gap: 0.75rem;
+    }
+
+    @media (max-width: 767.98px) {
+        gap: 0.5rem;
+    }
+}
+
+.btn-cart {
+    border-color: $gray-400;
+    color: $dark;
+    background-color: transparent;
+    padding: 0.625rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: $font-weight-medium;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    &:hover {
+        color: #ffffff !important;
+        background-color: $secondary;
+        border-color: $secondary;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba($secondary, 0.2);
+    }
+
+    &:focus {
+        color: #ffffff !important;
+        background-color: $secondary;
+        border-color: $secondary;
+        box-shadow: 0 0 0 0.2rem rgba($secondary, 0.25);
+    }
+
+    &:active {
+        color: #ffffff !important;
+        background-color: darken($secondary, 8%);
+        border-color: darken($secondary, 8%);
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba($secondary, 0.2);
+    }
+
+    .bi-cart-fill {
+        font-size: 1.125rem;
+        margin-right: 0.5rem;
+
+        @media (max-width: 767.98px) {
+            margin-right: 0;
+        }
+    }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+        animation: pulse 2s infinite;
+    }
+
+    @media (max-width: 767.98px) {
+        padding: 0.5rem 0.75rem;
+        min-width: 44px; // Touch target mínimo
+    }
+
+    @media (max-width: 991.98px) {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+.btn-user-menu {
+    padding: 0.625rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: $font-weight-medium;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba($primary, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    .bi-person {
+        font-size: 1.125rem;
+
+        @media (max-width: 767.98px) {
+            font-size: 1.25rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        padding: 0.5rem 0.75rem;
+        min-width: 44px;
+    }
+
+    @media (max-width: 991.98px) {
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+// Botões primários - Flat Modern 2025 (WCAG 2.2)
+.btn-primary {
+    color: #ffffff !important;
+    background-color: $primary;
+    border-color: $primary;
+    font-weight: $font-weight-semibold;
+    padding: 0.625rem 1.25rem;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-width: 2px;
+
+    &:hover {
+        color: #ffffff !important;
+        background-color: darken($primary, 8%);
+        border-color: darken($primary, 8%);
+        // Flat modern: sem transform, sem shadow pesada
+    }
+
+    &:focus {
+        color: #ffffff !important;
+        background-color: $primary;
+        border-color: $primary;
+        // Focus ring moderno (padrão acessibilidade 2025)
+        outline: 2px solid rgba($primary, 0.4);
+        outline-offset: 2px;
+    }
+
+    &:active {
+        color: #ffffff !important;
+        background-color: darken($primary, 12%);
+        border-color: darken($primary, 12%);
+        // Scale sutil (microinteração moderna)
+        transform: scale(0.98);
+    }
+
+    &:disabled {
+        color: #ffffff !important;
+        background-color: lighten($primary, 20%);
+        border-color: lighten($primary, 20%);
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    i {
+        margin-right: 0.375rem;
+    }
+}
+
+// Botões secondary - Flat Modern 2025
+.btn-secondary {
+    color: #ffffff !important;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight: $font-weight-semibold;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-width: 2px;
+
+    &:hover {
+        color: #ffffff !important;
+        background-color: darken($secondary, 8%);
+        border-color: darken($secondary, 8%);
+        // Flat modern: apenas mudança de cor
+    }
+
+    &:focus {
+        color: #ffffff !important;
+        background-color: $secondary;
+        border-color: $secondary;
+        outline: 2px solid rgba($secondary, 0.4);
+        outline-offset: 2px;
+    }
+
+    &:active {
+        color: #ffffff !important;
+        background-color: darken($secondary, 12%);
+        border-color: darken($secondary, 12%);
+        transform: scale(0.98);
+    }
+
+    &:disabled {
+        color: #ffffff !important;
+        background-color: lighten($secondary, 20%);
+        border-color: lighten($secondary, 20%);
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// Botões outline - Flat Modern 2025
+.btn-outline-secondary {
+    color: $secondary;
+    background-color: transparent;
+    border-color: $secondary;
+    font-weight: $font-weight-medium;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border-width: 2px;
+
+    &:hover {
+        color: #ffffff !important;
+        background-color: $secondary;
+        border-color: $secondary;
+        // Flat: transição suave de cor apenas
+    }
+
+    &:focus {
+        color: $secondary;
+        background-color: transparent;
+        border-color: $secondary;
+        outline: 2px solid rgba($secondary, 0.4);
+        outline-offset: 2px;
+    }
+
+    &:active {
+        color: #ffffff !important;
+        background-color: darken($secondary, 8%);
+        border-color: darken($secondary, 8%);
+        transform: scale(0.98);
+    }
+
+    &:disabled {
+        color: lighten($secondary, 20%);
+        background-color: transparent;
+        border-color: lighten($secondary, 20%);
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// Animação para badge do carrinho
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/**
+ * Footer
+ */
+footer {
+    background-color: $dark;
+    color: white;
+
+    h5,
+    h6 {
+        color: white;
+    }
+
+    .bi-sun {
+        color: $warning;
+    }
+
+    a {
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: white !important;
+        }
+    }
+
+    .social-links {
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(white, 0.1);
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: rgba(white, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    hr {
+        opacity: 0.25;
+    }
+}
+
+/**
+ * Mobile Responsive
+ */
+@media (max-width: 767.98px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+
+        .bi-sun {
+            font-size: 1.5rem;
+        }
+    }
+
+    .btn-outline-dark {
+        padding: 0.5rem 0.75rem;
+
+        .bi-cart-fill {
+            font-size: 1.125rem;
+        }
+    }
+
+    .navbar-nav {
+        .nav-link {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid $gray-200;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    footer {
+
+        .col-6,
+        .col-lg-2 {
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+/**
+ * Icon Buttons - Minimalista 2025
+ */
+
+// Cart Icon Button - Flat Modern 2025
+.btn-icon-cart {
+    position: relative;
+    background: transparent;
+    border: 2px solid transparent;
+    color: $dark;
+    padding: 0.625rem;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    i {
+        font-size: 1.5rem;
+        transition: color 0.2s ease;
+    }
+
+    &:hover {
+        background: rgba($primary, 0.1);
+        border-color: rgba($primary, 0.2);
+        // Flat: sem movimento vertical
+
+        i {
+            color: $primary;
+            // Flat: sem scale no ícone
+        }
+    }
+
+    &:active {
+        background: rgba($primary, 0.15);
+        transform: scale(0.95);
+    }
+}
+
+// Cart Badge (contador)
+.cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: $primary;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.375rem;
+    box-shadow: 0 2px 8px rgba($primary, 0.4);
+    animation: badgePulse 0.3s ease-out;
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+// User Icon Button - Flat Modern 2025 (WCAG 2.2)
+.btn-icon-user {
+    background: transparent;
+    border: 2px solid $gray-300;
+    color: $dark;
+    padding: 0.5rem 1rem;
+    border-radius: 50rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 44px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+
+    i {
+        font-size: 1.25rem;
+    }
+
+    &:hover {
+        background: $primary;
+        border-color: $primary;
+        color: white;
+        // Flat: apenas transição de cor
+    }
+
+    &:active {
+        background: darken($primary, 8%);
+        transform: scale(0.98);
+    }
+
+    &.show {
+        background: $primary;
+        border-color: $primary;
+        color: white;
+    }
+}
+
+// Text Only Button (Entrar) - 44px (WCAG 2.2)
+.btn-text-only {
+    background: transparent;
+    border: none;
+    color: $dark;
+    padding: 0.625rem 1rem;
+    height: 44px;
+    font-weight: 500;
+    border-radius: 0.5rem; // 8px - Sempre visível
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+        color: $primary;
+        background: rgba($primary, 0.05);
+    }
+}
