@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" viewBox="0 0 150 149.999998" preserveAspectRatio="xMidYMid meet" version="1.0">
-  <!-- Fundo branco -->
-  <rect x="0" y="0" width="150" height="150" fill="#ffffff"/>
+  <!-- Fundo branco com bordas arredondadas -->
+  <rect x="0" y="0" width="150" height="150" fill="#ffffff" rx="20"/>
 
   <!-- Logo original do banco de dados -->
   <defs>
