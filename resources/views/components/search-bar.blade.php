@@ -35,7 +35,7 @@
                         <small class="text-muted fw-bold">PRODUTOS</small>
                     </div>
                     <template x-for="product in products" :key="product.slug">
-                        <a :href="`/products/${product.slug}`"
+                        <a :href="`/produtos/${product.slug}`"
                            class="list-group-item list-group-item-action border-0"
                            @click="showSuggestions = false">
                             <div class="d-flex align-items-center">
