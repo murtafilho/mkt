@@ -176,12 +176,13 @@
                 this.$refs.fileInput.click();
             }
         }
-    }" class="space-y-4">
+    }"
+    class="vstack gap-3">
     @if($label)
-        <label class="block text-sm font-medium text-neutral-700">
+        <label class="form-label fw-medium">
             {{ $label }}
             @if($required)
-                <span class="text-danger-600">*</span>
+                <span class="text-danger">*</span>
             @endif
         </label>
     @endif
@@ -193,17 +194,18 @@
         @dragleave.prevent="isDragging = false"
         @drop.prevent="isDragging = false; handleFiles($event.dataTransfer.files)"
         @click="triggerFileInput()"
-        :class="isDragging ? 'border-primary-500 bg-primary-50' : 'border-neutral-300 hover:border-primary-400'"
-        class="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors"
+        :class="isDragging ? 'border-primary bg-primary bg-opacity-10' : 'border-secondary'"
+        class="border border-2 border-dashed rounded-3 p-4 text-center cursor-pointer transition"
+        style="cursor: pointer;"
     >
-        <svg class="mx-auto h-12 w-12 text-neutral-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+        <svg class="mx-auto mb-3 text-muted" style="width: 48px; height: 48px;" stroke="currentColor" fill="none" viewBox="0 0 48 48">
             <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        <p class="mt-2 text-sm text-neutral-600">
-            <span class="font-semibold">Clique para selecionar</span> ou arraste {{ $multiple ? 'imagens' : 'uma imagem' }}
+        <p class="mb-2 text-muted">
+            <span class="fw-semibold">Clique para selecionar</span> ou arraste {{ $multiple ? 'imagens' : 'uma imagem' }}
         </p>
         @if($helpText)
-            <p class="mt-1 text-xs text-neutral-500">{{ $helpText }}</p>
+            <p class="mb-0 small text-muted">{{ $helpText }}</p>
         @endif
     </div>
 
@@ -216,80 +218,107 @@
         accept="{{ $accept }}"
         @if($multiple) multiple @endif
         @change="handleFiles($event.target.files)"
-        class="hidden"
+        class="d-none"
         {{ $attributes }}
     >
 
     {{-- Errors --}}
-    <div x-show="errors.length > 0" class="space-y-1">
+    <div x-show="errors.length > 0" class="vstack gap-1">
         <template x-for="error in errors" :key="error">
-            <p x-text="error" class="text-sm text-danger-600"></p>
+            <p x-text="error" class="small text-danger mb-0"></p>
         </template>
     </div>
 
     @error($name)
-        <p class="text-sm text-danger-600">{{ $message }}</p>
+        <p class="small text-danger mb-0">{{ $message }}</p>
     @enderror
     @error($name . '.0')
-        <p class="text-sm text-danger-600">{{ $message }}</p>
+        <p class="small text-danger mb-0">{{ $message }}</p>
     @enderror
 
     {{-- Preview Grid --}}
-    <div x-show="totalImages > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div x-show="totalImages > 0" class="row g-3">
         {{-- Existing Images --}}
         <template x-for="(image, index) in existingImages" :key="'existing-' + image.id">
-            <div class="relative group aspect-square rounded-lg overflow-hidden border-2 border-primary-300 bg-neutral-100">
-                <img
-                    :src="image.preview_url || image.original_url"
-                    :alt="image.name"
-                    class="w-full h-full object-cover"
-                >
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                <button
-                    type="button"
-                    @click.stop="removeExisting(image.id)"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 bg-danger-600 text-white p-2 rounded-full hover:bg-danger-700 transition-all"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                    </svg>
-                </button>
-                <div class="absolute top-2 left-2 bg-primary-600 text-white text-xs px-2 py-1 rounded">
-                    Atual
+            <div class="col-6 col-md-3">
+                <div class="position-relative rounded-3 overflow-hidden border border-2 border-primary bg-light image-uploader-item" style="aspect-ratio: 1/1;">
+                    <img
+                        :src="image.preview_url || image.original_url"
+                        :alt="image.name"
+                        class="w-100 h-100"
+                        style="object-fit: cover;"
+                    >
+                    <div class="image-uploader-overlay position-absolute top-0 start-0 end-0 bottom-0 bg-dark opacity-0 transition"></div>
+                    <button
+                        type="button"
+                        @click.stop="removeExisting(image.id)"
+                        class="image-uploader-delete-btn btn btn-danger btn-sm rounded-circle position-absolute top-50 start-50 translate-middle opacity-0 transition"
+                    >
+                        <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>
+                    <div class="position-absolute top-0 start-0 m-2">
+                        <span class="badge bg-primary">Atual</span>
+                    </div>
                 </div>
             </div>
         </template>
 
         {{-- New Previews --}}
         <template x-for="(preview, index) in previews" :key="'preview-' + index">
-            <div class="relative group aspect-square rounded-lg overflow-hidden border-2 border-neutral-300 bg-neutral-100">
-                <img
-                    :src="preview.url"
-                    :alt="preview.name"
-                    class="w-full h-full object-cover"
-                >
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-                <button
-                    type="button"
-                    @click.stop="removePreview(index)"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 bg-danger-600 text-white p-2 rounded-full hover:bg-danger-700 transition-all"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-                <div class="absolute top-2 left-2 bg-success-600 text-white text-xs px-2 py-1 rounded">
-                    Novo
-                </div>
-                <div class="absolute bottom-2 left-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded truncate">
-                    <span x-text="preview.size"></span>
+            <div class="col-6 col-md-3">
+                <div class="position-relative rounded-3 overflow-hidden border border-2 border-secondary bg-light image-uploader-item" style="aspect-ratio: 1/1;">
+                    <img
+                        :src="preview.url"
+                        :alt="preview.name"
+                        class="w-100 h-100"
+                        style="object-fit: cover;"
+                    >
+                    <div class="image-uploader-overlay position-absolute top-0 start-0 end-0 bottom-0 bg-dark opacity-0 transition"></div>
+                    <button
+                        type="button"
+                        @click.stop="removePreview(index)"
+                        class="image-uploader-delete-btn btn btn-danger btn-sm rounded-circle position-absolute top-50 start-50 translate-middle opacity-0 transition"
+                    >
+                        <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <div class="position-absolute top-0 start-0 m-2">
+                        <span class="badge bg-success">Novo</span>
+                    </div>
+                    <div class="position-absolute bottom-0 start-0 end-0 m-2 bg-dark bg-opacity-75 text-white small px-2 py-1 rounded text-truncate">
+                        <span x-text="preview.size"></span>
+                    </div>
                 </div>
             </div>
         </template>
     </div>
 
     {{-- Counter --}}
-    <div x-show="multiple && totalImages > 0" class="text-sm text-neutral-600">
+    <div x-show="multiple && totalImages > 0" class="small text-muted">
         <span x-text="totalImages"></span> de {{ $maxFiles }} imagens
     </div>
 </div>
+
+@push('styles')
+<style>
+/* Image Uploader - Bootstrap 5.3 Custom Styles */
+.image-uploader-item:hover .image-uploader-overlay {
+    opacity: 0.4 !important;
+}
+
+.image-uploader-item:hover .image-uploader-delete-btn {
+    opacity: 1 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+</style>
+@endpush
