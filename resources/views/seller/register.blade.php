@@ -357,7 +357,7 @@
                         </div>
 
                         {{-- Submit Button --}}
-                        <div class="d-row">
+                        <div class="d-grid">
                             <button type="submit" class="btn btn-primary btn-lg">
                                 <i class="bi bi-shop me-2"></i>
                                 Criar Minha Loja
