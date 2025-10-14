@@ -1,11 +1,13 @@
 @extends('layouts.seller')
 
+@section('title', 'Detalhes do Pedido')
+
 @section('page-content')
 <div class="container-fluid py-4">
     {{-- Header --}}
     <div class="d-flex justify-content-between align-items-start mb-4">
         <div>
-            <a href="{{ route('seller.orders.index') }}" class="text-decoration-none text-muted mb-2 d-d-inline-d-block">
+            <a href="{{ route('seller.orders.index') }}" class="text-decoration-none text-muted mb-2 d-inline-block">
                 <i class="bi bi-arrow-left me-1"></i>
                 Voltar para pedidos
             </a>
