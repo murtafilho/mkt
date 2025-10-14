@@ -21,7 +21,10 @@
 @import 'cropperjs/dist/cropper.css';
 
 // 6. Import Custom Components
-@import 'components/header';
+@import 'components/navbar';        // Header, Top-bar, Navigation
+@import 'components/buttons';       // Custom Button Styles
+@import 'components/footer';        // Footer Styles
+@import 'components/header';        // Icon Buttons & Logo Container
 @import 'components/hero';
 @import 'components/categories';
 @import 'components/search';

@@ -1,0 +1,86 @@
+/**
+ * Footer
+ */
+footer {
+    background-color: $dark;
+    color: white;
+
+    h5,
+    h6 {
+        color: white;
+    }
+
+    .bi-sun {
+        color: $warning;
+    }
+
+    a {
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: white !important;
+        }
+    }
+
+    .social-links {
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(white, 0.1);
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: rgba(white, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    hr {
+        opacity: 0.25;
+    }
+}
+
+/**
+ * Mobile Responsive
+ */
+@media (max-width: 767.98px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+
+        .bi-sun {
+            font-size: 1.5rem;
+        }
+    }
+
+    .btn-outline-dark {
+        padding: 0.5rem 0.75rem;
+
+        .bi-cart-fill {
+            font-size: 1.125rem;
+        }
+    }
+
+    .navbar-nav {
+        .nav-link {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid $gray-200;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    footer {
+
+        .col-6,
+        .col-lg-2 {
+            margin-bottom: 1.5rem;
+        }
+    }
+}

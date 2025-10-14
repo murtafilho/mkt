@@ -1,0 +1,169 @@
+/**
+ * Header & Navigation - Vale do Sol
+ */
+
+/**
+ * Top Bar
+ */
+.top-bar {
+    background-color: $gray-100;
+    border-bottom: 1px solid $gray-200;
+    padding: 0.5rem 0;
+
+    a {
+        color: $gray-700;
+        font-weight: $font-weight-medium;
+        transition: color 0.2s ease;
+        font-size: 0.875rem;
+
+        &:hover {
+            color: $primary;
+        }
+    }
+
+    .bi-geo-alt {
+        color: $primary;
+    }
+
+    small {
+        font-size: 0.875rem;
+    }
+}
+
+
+/**
+ * Main Header (Sticky) - Minimalista 2025
+ * Background e shadow centralizados no SCSS
+ */
+header.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+
+    &.scrolled {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.header-content {
+    padding: 0.75rem 0; // Espaçamento vertical centralizado
+
+    @media (max-width: 991.98px) {
+        padding: 0.625rem 0;
+    }
+
+    @media (max-width: 767.98px) {
+        padding: 0.5rem 0;
+    }
+
+    // Otimizar espaçamento das colunas
+    >div {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+
+        @media (min-width: 992px) {
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+    }
+}
+
+/**
+ * Navbar Brand (Logo) - Compacto 2025
+ */
+.navbar-brand {
+    font-weight: $font-weight-bold;
+    font-size: 1.375rem; // Reduzido de 1.5rem
+    color: $primary !important;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    padding-right: 0;
+
+    &:hover {
+        color: darken($primary, 10%) !important;
+    }
+
+    .bi-sun {
+        color: $warning;
+        font-size: 1.5rem; // Reduzido de 1.75rem
+        flex-shrink: 0;
+    }
+}
+
+/**
+ * Navigation Menu (Categorias)
+ */
+.navbar.navbar-light {
+    background-color: $gray-100;
+    border-top: 1px solid $gray-200;
+}
+
+/**
+ * Navigation Links
+ */
+.navbar-nav {
+    .nav-link {
+        font-weight: $font-weight-medium;
+        transition: color 0.2s ease;
+        padding: 0.5rem 1rem;
+
+        i {
+            color: $secondary;
+            transition: color 0.2s ease;
+        }
+
+        &:hover {
+            color: $primary !important;
+
+            i {
+                color: $primary;
+            }
+        }
+
+        &.active {
+            color: $primary !important;
+            font-weight: $font-weight-semibold;
+
+            i {
+                color: $primary;
+            }
+        }
+    }
+
+    .dropdown-menu {
+        border: none;
+        box-shadow: $box-shadow-lg;
+        border-radius: 0.75rem; // 12px - Dropdown moderno
+        margin-top: 0.5rem;
+
+        .dropdown-item {
+            padding: 0.625rem 1.25rem;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: rgba($primary, 0.1);
+                color: $primary;
+                padding-left: 1.5rem;
+            }
+
+            &:active {
+                background-color: rgba($primary, 0.2);
+            }
+        }
+
+        .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+    }
+}
+
