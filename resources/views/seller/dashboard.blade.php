@@ -203,19 +203,4 @@
     </div>
     @endif
 </div>
-
-<style>
-.hover-lift {
-    transition: all 0.3s ease;
-}
-
-.hover-lift:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
-}
-
-.bg-gradient {
-    background: linear-gradient(135deg, rgba(var(--bs-primary-rgb), 0.1) 0%, rgba(var(--bs-secondary-rgb), 0.1) 100%);
-}
-</style>
 @endsection
