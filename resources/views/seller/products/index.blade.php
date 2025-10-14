@@ -63,7 +63,7 @@
                     <div class="col-md-3">
                         <label class="form-label">&nbsp;</label>
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary d-flex-fill">Filtrar</button>
+                            <button type="submit" class="btn btn-primary flex-fill">Filtrar</button>
                             <a href="{{ route('seller.products.index') }}" class="btn btn-outline-secondary">Limpar</a>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
 
             {{-- Pagination --}}
             <div class="card-footer bg-transparent border-0">
-                <div class="d-flex flex-column d-flex-sm-row justify-content-between align-items-center gap-3">
+                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
                     <div class="d-flex align-items-center gap-3">
                         <label for="per_page" class="form-label mb-0 small">Items por página:</label>
                         <select name="per_page" id="per_page"
