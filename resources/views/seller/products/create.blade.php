@@ -2,9 +2,9 @@
 
 @section('title', 'Novo Produto')
 
-@section('page-content')
-    @section('header', 'Novo Produto')
+@section('header', 'Novo Produto')
 
+@section('page-content')
     <div class="container-fluid py-4">
         {{-- Header --}}
         <div class="mb-4">
@@ -216,7 +216,7 @@
                             <div class="col-12 col-md-4">
                                 <span class="text-secondary">Margem de Lucro:</span>
                                 <span class="ms-2 fw-bold"
-                                      :class="margin >= ? 'text-success' : 'text-danger'"
+                                      :class="margin >= 0 ? 'text-success' : 'text-danger'"
                                       x-text="formatPercent(margin)"></span>
                             </div>
                             <div class="col-12 col-md-4">
@@ -226,7 +226,7 @@
                             <div class="col-12 col-md-4">
                                 <span class="text-secondary">Lucro Estimado:</span>
                                 <span class="ms-2 fw-bold"
-                                      :class="profit >= ? 'text-success' : 'text-danger'"
+                                      :class="profit >= 0 ? 'text-success' : 'text-danger'"
                                       x-text="formatCurrency(profit)"></span>
                             </div>
                         </div>
