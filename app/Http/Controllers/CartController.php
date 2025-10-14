@@ -91,7 +91,10 @@ class CartController extends Controller
     public function add(AddToCartRequest $request): JsonResponse
     {
         try {
-            $product = \App\Models\Product::findOrFail($request->input('product_id'));
+            // Find product and validate it's available for purchase
+            $product = \App\Models\Product::availableForMarketplace()
+                ->inStock()
+                ->findOrFail($request->input('product_id'));
 
             $this->cartService->addItem(
                 $product,

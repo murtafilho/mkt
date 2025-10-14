@@ -39,10 +39,12 @@ class HomeController extends Controller
             ->take(12)
             ->get();
 
-        // Stats for stats bar
+        // Stats for stats bar (only approved sellers and available products)
         $stats = [
-            'sellers_count' => \App\Models\Seller::where('status', 'active')->count(),
-            'products_count' => Product::published()->count(),
+            'sellers_count' => \App\Models\Seller::where('status', 'active')
+                ->whereNotNull('approved_at')
+                ->count(),
+            'products_count' => Product::availableForMarketplace()->count(),
         ];
 
         return view('home', compact('featuredProducts', 'mainCategories', 'latestProducts', 'stats'));

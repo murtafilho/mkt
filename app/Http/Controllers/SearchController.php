@@ -45,9 +45,10 @@ class SearchController extends Controller
                 ];
             });
 
-        // Search sellers (limit 3)
+        // Search sellers (limit 3, only approved)
         $sellers = Seller::with(['media', 'addresses'])
             ->where('status', 'active')
+            ->whereNotNull('approved_at')
             ->where(function ($q) use ($query) {
                 $q->where('store_name', 'LIKE', "%{$query}%")
                     ->orWhere('description', 'LIKE', "%{$query}%");
