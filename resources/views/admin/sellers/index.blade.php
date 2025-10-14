@@ -504,16 +504,62 @@ function sellersTable() {
         // Bulk Actions
         async bulkApprove() {
             if (!confirm(`Aprovar ${this.selectedItems.length} vendedor(es)?`)) return;
-            
-            // Implementar chamada Ajax para aprovar múltiplos
-            alert('Funcionalidade de aprovação em massa será implementada');
+
+            try {
+                const response = await fetch('{{ route('admin.sellers.bulk.approve') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        seller_ids: this.selectedItems
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    alert(data.message);
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Erro ao aprovar vendedores. Tente novamente.');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao processar ação. Tente novamente.');
+            }
         },
-        
+
         async bulkSuspend() {
-            if (!confirm(`Suspender ${this.selectedItems.length} vendedor(es)?`)) return;
-            
-            // Implementar chamada Ajax para suspender múltiplos
-            alert('Funcionalidade de suspensão em massa será implementada');
+            if (!confirm(`Suspender ${this.selectedItems.length} vendedor(es)? Todos os produtos serão despublicados.`)) return;
+
+            try {
+                const response = await fetch('{{ route('admin.sellers.bulk.suspend') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        seller_ids: this.selectedItems
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    alert(data.message);
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Erro ao suspender vendedores. Tente novamente.');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao processar ação. Tente novamente.');
+            }
         },
         
         // Export

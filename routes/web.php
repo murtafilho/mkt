@@ -152,6 +152,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('sellers/{seller}/approve', [AdminSellerController::class, 'approve'])->name('sellers.approve');
     Route::post('sellers/{seller}/suspend', [AdminSellerController::class, 'suspend'])->name('sellers.suspend');
     Route::post('sellers/{seller}/reactivate', [AdminSellerController::class, 'reactivate'])->name('sellers.reactivate');
+    Route::post('sellers/bulk/approve', [AdminSellerController::class, 'bulkApprove'])->name('sellers.bulk.approve');
+    Route::post('sellers/bulk/suspend', [AdminSellerController::class, 'bulkSuspend'])->name('sellers.bulk.suspend');
 
     // Order management
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');

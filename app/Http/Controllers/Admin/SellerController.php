@@ -112,4 +112,70 @@ class SellerController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    /**
+     * Bulk approve sellers.
+     */
+    public function bulkApprove(Request $request)
+    {
+        $request->validate([
+            'seller_ids' => 'required|array|min:1',
+            'seller_ids.*' => 'required|integer|exists:sellers,id',
+        ]);
+
+        try {
+            $count = 0;
+            foreach ($request->seller_ids as $sellerId) {
+                $seller = Seller::findOrFail($sellerId);
+                if ($seller->status === 'pending') {
+                    $this->sellerService->approveSeller($seller);
+                    $count++;
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "{$count} vendedor(es) aprovado(s) com sucesso!",
+                'count' => $count,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao aprovar vendedores: '.$e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Bulk suspend sellers.
+     */
+    public function bulkSuspend(Request $request)
+    {
+        $request->validate([
+            'seller_ids' => 'required|array|min:1',
+            'seller_ids.*' => 'required|integer|exists:sellers,id',
+        ]);
+
+        try {
+            $count = 0;
+            foreach ($request->seller_ids as $sellerId) {
+                $seller = Seller::findOrFail($sellerId);
+                if ($seller->status === 'active') {
+                    $this->sellerService->suspendSeller($seller);
+                    $count++;
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => "{$count} vendedor(es) suspenso(s) com sucesso! Todos os produtos foram despublicados.",
+                'count' => $count,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao suspender vendedores: '.$e->getMessage(),
+            ], 500);
+        }
+    }
 }
