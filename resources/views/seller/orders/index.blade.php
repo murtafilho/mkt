@@ -86,7 +86,7 @@
                     <input type="hidden" name="status" value="{{ request('status') }}">
                     <div class="col-md-4">
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary d-flex-fill">Buscar</button>
+                            <button type="submit" class="btn btn-primary flex-fill">Buscar</button>
                             <a href="{{ route('seller.orders.index') }}" class="btn btn-outline-secondary">Limpar</a>
                         </div>
                     </div>
