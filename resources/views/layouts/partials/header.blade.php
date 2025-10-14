@@ -8,20 +8,6 @@
                     @if(!empty($logoSettings['logo_svg']))
                         {{-- SVG Logo + Site Name --}}
                         <div class="logo-svg-container me-2" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                            <style>
-                                .logo-svg-container svg {
-                                    fill: #588c4c !important;
-                                    color: #588c4c !important;
-                                }
-                                .logo-svg-container svg path,
-                                .logo-svg-container svg circle,
-                                .logo-svg-container svg rect,
-                                .logo-svg-container svg polygon,
-                                .logo-svg-container svg g {
-                                    fill: #588c4c !important;
-                                    stroke: #588c4c !important;
-                                }
-                            </style>
                             {!! $logoSettings['logo_svg'] !!}
                         </div>
                         <span class="site-name d-none d-md-inline" style="font-weight: 600; color: #588c4c; font-size: 1.5rem;">{{ $logoSettings['site_name'] }}</span>

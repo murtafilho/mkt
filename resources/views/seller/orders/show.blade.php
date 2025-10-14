@@ -186,7 +186,7 @@
                         <form action="{{ route('seller.orders.update-status', $order) }}" method="POST" class="mb-3">
                             @csrf
                             @method('PATCH')
-                            <input type="d-none" name="status" value="preparing">
+                            <input type="hidden" name="status" value="preparing">
                             <button type="submit" class="btn btn-warning w-100">
                                 <i class="bi bi-clock me-2"></i>
                                 Marcar como "Em Preparação"
@@ -198,7 +198,7 @@
                         <form action="{{ route('seller.orders.update-status', $order) }}" method="POST" class="mb-3">
                             @csrf
                             @method('PATCH')
-                            <input type="d-none" name="status" value="shipped">
+                            <input type="hidden" name="status" value="shipped">
                             <button type="submit" class="btn btn-primary w-100">
                                 <i class="bi bi-truck me-2"></i>
                                 Marcar como "Enviado"
@@ -210,7 +210,7 @@
                         <form action="{{ route('seller.orders.update-status', $order) }}" method="POST" class="mb-3">
                             @csrf
                             @method('PATCH')
-                            <input type="d-none" name="status" value="delivered">
+                            <input type="hidden" name="status" value="delivered">
                             <button type="submit" class="btn btn-success w-100">
                                 <i class="bi bi-check-circle me-2"></i>
                                 Marcar como "Entregue"
@@ -261,10 +261,4 @@
         </div>
     </div>
 </div>
-
-<style>
-.bg-purple {
-    background-color: #6f42c1 !important;
-}
-</style>
 @endsection

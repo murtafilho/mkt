@@ -83,7 +83,7 @@
                         <input type="search" name="search" id="search" value="{{ request('search') }}"
                                placeholder="Buscar por número do pedido ou nome do cliente..." class="form-control">
                     </div>
-                    <input type="d-none" name="status" value="{{ request('status') }}">
+                    <input type="hidden" name="status" value="{{ request('status') }}">
                     <div class="col-md-4">
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary d-flex-fill">Buscar</button>
@@ -235,10 +235,4 @@
         @endif
     </div>
 </div>
-
-<style>
-.bg-purple {
-    background-color: #6f42c1 !important;
-}
-</style>
 @endsection

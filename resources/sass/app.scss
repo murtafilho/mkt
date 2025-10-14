@@ -68,6 +68,61 @@
 }
 
 /**
+ * Custom Background Colors
+ */
+.bg-purple {
+    background-color: #6f42c1 !important;
+}
+
+/**
+ * Table Utilities
+ */
+.sortable-th {
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    i {
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+    }
+}
+
+/**
+ * Button Close Small (for filter chips)
+ */
+.btn-close-sm {
+    font-size: 0.65rem;
+    padding: 0;
+    opacity: 0.6;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+/**
+ * Logo SVG Colorization
+ */
+.logo-svg-container svg {
+    fill: $primary !important;
+    color: $primary !important;
+}
+
+.logo-svg-container svg path,
+.logo-svg-container svg circle,
+.logo-svg-container svg rect,
+.logo-svg-container svg polygon,
+.logo-svg-container svg g {
+    fill: $primary !important;
+    stroke: $primary !important;
+}
+
+/**
  * Buttons Customization - 2025 Modern Trends
  * - Flat design em repouso (sem sombras)
  * - Hover com elevação sutil (translateY + box-shadow)

@@ -455,32 +455,5 @@ function categoriesTable() {
     }
 }
 </script>
-
-<style>
-.sortable-th {
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.15s ease;
-}
-
-.sortable-th:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.sortable-th i {
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-}
-
-.btn-close-sm {
-    font-size: 0.65rem;
-    padding: 0;
-    opacity: 0.6;
-}
-
-.btn-close-sm:hover {
-    opacity: 1;
-}
-</style>
 @endpush
 @endsection
