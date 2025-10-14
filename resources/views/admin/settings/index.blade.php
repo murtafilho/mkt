@@ -1,376 +1,373 @@
-<x-layouts.admin title="Configurações do Site">
-    <x-slot:header>Configurações do Site</x-slot:header>
+@extends('layouts.admin')
 
-<div class="space-y-6">
-<!-- Header -->
-<div class="bg-neutral-800 border-b border-neutral-700 px-6 py-4">
-<h1 class="text-2xl font-bold text-neutral-100">Configurações do Site</h1>
-<p class="mt-1 text-sm text-neutral-400">Personalize a aparência e comportamento do marketplace</p>
-</div>
+@section('title', 'Configurações do Site - Admin')
 
-<form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" 
-    x-data="settingsForm()" class="px-6 space-y-6">
-@csrf
-@method('PUT')
+@section('header', 'Configurações do Site')
 
-<!-- Alerts -->
-@if ($errors->any())
-<div class="bg-red-900/50 border border-red-700 text-red-200 px-4 py-3 rounded-lg">
-<p class="font-semibold">Há erros no formulário:</p>
-<ul class="mt-2 list-disc list-inside text-sm">
-@foreach ($errors->all() as $error)
-<li>{{ $error }}</li>
-@endforeach
-</ul>
-</div>
-@endif
-
-@if (session('success'))
-<div class="bg-green-900/50 border border-green-700 text-green-200 px-4 py-3 rounded-lg">
-✅ {{ session('success') }}
-</div>
-@endif
-
-<!-- Informações do Site -->
-<div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-<h2 class="text-lg font-semibold text-neutral-100 mb-4">📝 Informações do Site</h2>
-
-<div class="space-y-4">
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Nome do Site
-</label>
-<input type="text" name="site_name" 
-    value="{{ old('site_name', $settings['site'] ['site_name']) }}"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-</div>
-
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Slogan
-</label>
-<input type="text" name="site_tagline" 
-    value="{{ old('site_tagline', $settings['site']['site_tagline']) }}"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-</div>
-
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Descrição (SEO)
-</label>
-<textarea name="site_description" rows="3"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">{{ old('site_description', $settings['site']['site_description']) }}</textarea>
-</div>
-</div>
-</div>
-
-<!-- Logo (SVG) -->
-<div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-<h2 class="text-lg font-semibold text-neutral-100 mb-4">🎨 Logo (SVG)</h2>
-
-<div class="bg-blue-900/30 border border-blue-700 rounded-lg p-4 mb-4 text-sm text-blue-200">
-💡 <strong>Dica:</strong> Cole o código SVG da sua logo. Formato vetorial garante qualidade em qualquer tamanho.
-</div>
-
-<div class="space-y-4">
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Código SVG
-</label>
-<textarea name="logo_svg" rows="8" 
-    x-model="logoSvg"
-    placeholder="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'>...</svg>"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 font-mono text-xs focus:border-primary-500 focus:ring-primary-500">{{ old('logo_svg', $settings['branding']['logo_svg']) }}</textarea>
-</div>
-
-<!-- Preview -->
-<div x-show="logoSvg" class="bg-neutral-900 border border-neutral-600 rounded-lg p-4">
-<p class="text-sm text-neutral-400 mb-2">Preview:</p>
-<div x-html="logoSvg" class="bg-white p-4 rounded"></div>
-</div>
-
-<div class="grid grid-cols-2 gap-4">
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Largura (px)
-</label>
-<input type="number" name="logo_width" 
-    value="{{ old('logo_width', $settings['branding']['logo_width']) }}"
-    min="50" max="500"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-</div>
-
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Altura (px)
-</label>
-<input type="number" name="logo_height" 
-    value="{{ old('logo_height', $settings['branding']['logo_height']) }}"
-    min="20" max="200"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-</div>
-</div>
-</div>
-</div>
-
-<!-- Hero Section -->
-<div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-<h2 class="text-lg font-semibold text-neutral-100 mb-4">🖼️ Hero da Homepage</h2>
-
-<div class="space-y-4">
-<!-- Hero Type -->
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Tipo de Hero
-</label>
-<select name="hero_type" x-model="heroType"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-<option value="gradient">Gradiente CSS</option>
-<option value="image">Imagem de Fundo</option>
-</select>
-</div>
-
-<!-- Hero Image (shown only if type = image) -->
-<div x-show="heroType === 'image'" class="space-y-2">
-@if (!empty($settings['hero']['hero_image']))
-<div class="bg-neutral-900 border border-neutral-600 rounded-lg p-4">
-<p class="text-sm text-neutral-400 mb-2">Imagem Atual:</p>
-<img src="{{ asset('storage/' . $settings['hero']['hero_image']) }}" 
-    alt="Hero" class="max-w-md rounded">
-<button type="button" @click="deleteHeroImage()"
-    class="mt-2 text-red-400 hover:text-red-300 text-sm">
-🗑️ Remover imagem
-</button>
-</div>
-@endif
-
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-{{ !empty($settings['hero']['hero_image']) ? 'Substituir Imagem' : 'Upload Imagem' }}
-</label>
-<input type="file" name="hero_image" accept="image/*"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2">
-<p class="text-xs text-neutral-500">Ideal: 1920x600px. Máximo: 2MB</p>
-</div>
-
-<!-- Hero Text -->
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Título do Hero
-</label>
-<input type="text" name="hero_title" 
-    value="{{ old('hero_title', $settings['hero']['hero_title']) }}"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-</div>
-
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Subtítulo do Hero
-</label>
-<input type="text" name="hero_subtitle" 
-    value="{{ old('hero_subtitle', $settings['hero']['hero_subtitle']) }}"
-    class="w-full bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 focus:border-primary-500 focus:ring-primary-500">
-</div>
-</div>
-</div>
-
-<!-- Cores (Tailwind CSS 4.0 - OKLCH) -->
-<div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-<h2 class="text-lg font-semibold text-neutral-100 mb-4">🎨 Cores do Site</h2>
-
-<div class="bg-amber-900/30 border border-amber-700 rounded-lg p-4 mb-4 text-sm text-amber-200">
-⚠️ <strong>Importante:</strong> Este projeto usa Tailwind CSS 4.0 com formato OKLCH para cores de alta qualidade.
-</div>
-
-<div class="space-y-4">
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Cor Primária (OKLCH)
-<a href="https://oklch.com" target="_blank" class="text-primary-400 hover:text-primary-300 text-xs ml-2">
-🔗 Gerador OKLCH
-</a>
-</label>
-<div class="flex gap-2">
-<input type="text" name="color_primary" 
-    value="{{ old('color_primary', $settings['colors']['color_primary']) }}"
-    placeholder="oklch(0.58 0.18 145)"
-    class="flex-1 bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 font-mono text-sm focus:border-primary-500 focus:ring-primary-500">
-<div class="w-16 h-10 rounded border-2 border-neutral-600"
-    style="background: {{ $settings['colors']['color_primary'] }}"></div>
-</div>
-<p class="text-xs text-neutral-500 mt-1">Usado em botões, links, destaques</p>
-</div>
-
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Cor Secundária (OKLCH)
-</label>
-<div class="flex gap-2">
-<input type="text" name="color_secondary" 
-    value="{{ old('color_secondary', $settings['colors']['color_secondary']) }}"
-    placeholder="oklch(0.68 0.15 250)"
-    class="flex-1 bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 font-mono text-sm focus:border-primary-500 focus:ring-primary-500">
-<div class="w-16 h-10 rounded border-2 border-neutral-600"
-    style="background: {{ $settings['colors']['color_secondary'] }}"></div>
-</div>
-<p class="text-xs text-neutral-500 mt-1">Usado em badges, tags, elementos secundários</p>
-</div>
-
-<div>
-<label class="block text-sm font-medium text-neutral-300 mb-2">
-Cor de Destaque (OKLCH)
-</label>
-<div class="flex gap-2">
-<input type="text" name="color_accent" 
-    value="{{ old('color_accent', $settings['colors']['color_accent']) }}"
-    placeholder="oklch(0.75 0.20 85)"
-    class="flex-1 bg-neutral-900 border-neutral-600 text-neutral-100 rounded-lg px-4 py-2 font-mono text-sm focus:border-primary-500 focus:ring-primary-500">
-<div class="w-16 h-10 rounded border-2 border-neutral-600"
-    style="background: {{ $settings['colors']['color_accent'] }}"></div>
-</div>
-<p class="text-xs text-neutral-500 mt-1">Usado em promoções, CTAs especiais</p>
-</div>
-</div>
-</div>
-
-<!-- Ordem das Seções da Home -->
-<div class="bg-neutral-800 border border-neutral-700 rounded-lg p-6">
-<h2 class="text-lg font-semibold text-neutral-100 mb-4">📐 Ordem das Seções da Homepage</h2>
-
-<div class="bg-blue-900/30 border border-blue-700 rounded-lg p-4 mb-4 text-sm text-blue-200">
-💡 <strong>Arraste e solte</strong> para reordenar as seções que aparecem na homepage.
-</div>
-
-<input type="hidden" name="home_sections_order" x-model="sectionsOrderJson">
-
-<div class="space-y-2" x-ref="sortableContainer">
-<template x-for="(section, index) in sectionsOrder" :key="section.id">
-<div 
-    class="bg-neutral-900 border border-neutral-600 rounded-lg p-4 cursor-move hover:border-primary-500 transition-colors"
-    draggable="true"
-    @dragstart="dragStart(index)"
-    @dragover.prevent
-    @drop="drop(index)">
-    
-    <div class="flex items-center gap-3">
-        <!-- Drag handle -->
-        <svg class="w-5 h-5 text-neutral-500" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path>
-        </svg>
-        
-        <!-- Section info -->
-        <div class="flex-1">
-            <p class="font-medium text-neutral-100" x-text="section.name"></p>
-            <p class="text-xs text-neutral-500" x-text="section.description"></p>
+@section('page-content')
+    <div class="container-fluid">
+        {{-- Page Header --}}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                        <i class="bi bi-gear-fill text-white fs-5"></i>
+                    </div>
+                    <div>
+                        <h1 class="h3 fw-bold mb-1 text-dark">Configurações do Site</h1>
+                        <p class="text-muted mb-0">Personalize a aparência e comportamento do marketplace</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- Order number -->
-        <span class="text-neutral-500 font-mono text-sm" x-text="index + 1"></span>
+
+        {{-- Alerts --}}
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                <strong>Há erros no formulário:</strong>
+                <ul class="mb-0 mt-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                <i class="bi bi-check-circle me-2"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <form action="{{ route('admin.settings.update') }}"
+              method="POST"
+              enctype="multipart/form-data"
+              x-data="settingsForm()">
+            @csrf
+            @method('PUT')
+
+            {{-- Informações do Site --}}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white border-0 border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-info-circle text-info"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h5 fw-semibold mb-0 text-dark">Informações do Site</h3>
+                                    <p class="text-muted small mb-0">Configure as informações básicas do marketplace</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label for="site_name" class="form-label fw-medium">Nome do Site</label>
+                                    <input type="text"
+                                           name="site_name"
+                                           id="site_name"
+                                           value="{{ old('site_name', $settings['site']['site_name']) }}"
+                                           class="form-control form-control-lg"
+                                           placeholder="Ex: Vale do Sol Marketplace">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="site_tagline" class="form-label fw-medium">Slogan</label>
+                                    <input type="text"
+                                           name="site_tagline"
+                                           id="site_tagline"
+                                           value="{{ old('site_tagline', $settings['site']['site_tagline']) }}"
+                                           class="form-control form-control-lg"
+                                           placeholder="Ex: Seu marketplace local">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="site_description" class="form-label fw-medium">Descrição (SEO)</label>
+                                    <textarea name="site_description"
+                                              id="site_description"
+                                              rows="3"
+                                              class="form-control"
+                                              placeholder="Descrição que aparecerá nos resultados de busca...">{{ old('site_description', $settings['site']['site_description']) }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Logo e Hero --}}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white border-0 border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-secondary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-image text-secondary"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h5 fw-semibold mb-0 text-dark">Logo e Hero</h3>
+                                    <p class="text-muted small mb-0">Configure o logo e seção hero da homepage</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <label for="logo_svg" class="form-label fw-medium">Logo SVG</label>
+                                    <textarea name="logo_svg"
+                                              id="logo_svg"
+                                              rows="6"
+                                              x-model="logoSvg"
+                                              placeholder="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'>...</svg>"
+                                              class="form-control font-monospace small">{{ old('logo_svg', $settings['branding']['logo_svg']) }}</textarea>
+                                    <div class="form-text">Cole o código SVG diretamente ou use o upload abaixo</div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="logo_svg_file" class="form-label fw-medium">Upload de Arquivo SVG</label>
+                                    <input type="file"
+                                           name="logo_svg_file"
+                                           id="logo_svg_file"
+                                           accept=".svg"
+                                           @change="handleSvgUpload($event)"
+                                           class="form-control">
+                                    <div class="form-text">Máximo: 512KB</div>
+                                </div>
+
+                                <div class="col-12" x-show="logoSvg" x-cloak>
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <p class="small text-muted mb-2">Preview do Logo:</p>
+                                            <div x-html="logoSvg" class="bg-white p-3 rounded border"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="hero_title" class="form-label fw-medium">Título do Hero</label>
+                                    <input type="text"
+                                           name="hero_title"
+                                           id="hero_title"
+                                           value="{{ old('hero_title', $settings['hero']['hero_title']) }}"
+                                           class="form-control"
+                                           placeholder="Ex: Bem-vindo ao Vale do Sol">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="hero_subtitle" class="form-label fw-medium">Subtítulo do Hero</label>
+                                    <input type="text"
+                                           name="hero_subtitle"
+                                           id="hero_subtitle"
+                                           value="{{ old('hero_subtitle', $settings['hero']['hero_subtitle']) }}"
+                                           class="form-control"
+                                           placeholder="Ex: Seu marketplace local">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Cores do Site --}}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white border-0 border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-palette text-warning"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h5 fw-semibold mb-0 text-dark">Cores do Site</h3>
+                                    <p class="text-muted small mb-0">Configure as cores principais do marketplace</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <label for="color_primary" class="form-label fw-medium">Cor Primária</label>
+                                    <div class="input-group">
+                                        <input type="color"
+                                               name="color_primary"
+                                               id="color_primary"
+                                               value="{{ old('color_primary', $settings['colors']['color_primary']) }}"
+                                               class="form-control form-control-color"
+                                               style="width: 60px; height: 44px;">
+                                        <input type="text"
+                                               class="form-control"
+                                               value="{{ old('color_primary', $settings['colors']['color_primary']) }}"
+                                               readonly>
+                                    </div>
+                                    <div class="form-text">Usado em botões, links, destaques</div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="color_secondary" class="form-label fw-medium">Cor Secundária</label>
+                                    <div class="input-group">
+                                        <input type="color"
+                                               name="color_secondary"
+                                               id="color_secondary"
+                                               value="{{ old('color_secondary', $settings['colors']['color_secondary']) }}"
+                                               class="form-control form-control-color"
+                                               style="width: 60px; height: 44px;">
+                                        <input type="text"
+                                               class="form-control"
+                                               value="{{ old('color_secondary', $settings['colors']['color_secondary']) }}"
+                                               readonly>
+                                    </div>
+                                    <div class="form-text">Usado em badges, tags, elementos secundários</div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="color_accent" class="form-label fw-medium">Cor de Destaque</label>
+                                    <div class="input-group">
+                                        <input type="color"
+                                               name="color_accent"
+                                               id="color_accent"
+                                               value="{{ old('color_accent', $settings['colors']['color_accent']) }}"
+                                               class="form-control form-control-color"
+                                               style="width: 60px; height: 44px;">
+                                        <input type="text"
+                                               class="form-control"
+                                               value="{{ old('color_accent', $settings['colors']['color_accent']) }}"
+                                               readonly>
+                                    </div>
+                                    <div class="form-text">Usado em promoções, CTAs especiais</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Configurações Avançadas --}}
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white border-0 border-bottom">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-sliders text-success"></i>
+                                </div>
+                                <div>
+                                    <h3 class="h5 fw-semibold mb-0 text-dark">Configurações Avançadas</h3>
+                                    <p class="text-muted small mb-0">Ajustes adicionais do sistema</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label for="hero_type" class="form-label fw-medium">Tipo de Hero da Homepage</label>
+                                    <select name="hero_type" id="hero_type" class="form-select">
+                                        <option value="gradient" {{ old('hero_type', $settings['hero']['hero_type']) === 'gradient' ? 'selected' : '' }}>Gradiente CSS</option>
+                                        <option value="image" {{ old('hero_type', $settings['hero']['hero_type']) === 'image' ? 'selected' : '' }}>Imagem de Fundo</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="hero_opacity" class="form-label fw-medium">Opacidade do Gradiente (%)</label>
+                                    <input type="range" 
+                                           name="hero_opacity" 
+                                           id="hero_opacity" 
+                                           min="10" 
+                                           max="50" 
+                                           value="{{ old('hero_opacity', $settings['hero']['hero_opacity'] ?? 20) }}"
+                                           class="form-range">
+                                    <div class="form-text">Valor atual: <span id="opacity-value">{{ old('hero_opacity', $settings['hero']['hero_opacity'] ?? 20) }}</span>%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Actions --}}
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center p-4 bg-light rounded">
+                        <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            Voltar ao Dashboard
+                        </a>
+
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Salvar Configurações
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
-</template>
-</div>
-</div>
 
-<!-- Actions -->
-<div class="flex items-center justify-between border-t border-neutral-700 pt-6">
-<a href="{{ route('admin.dashboard') }}" 
-    class="text-neutral-400 hover:text-neutral-200">
-← Voltar ao Dashboard
-</a>
+    @push('scripts')
+    <script>
+    function settingsForm() {
+        return {
+            logoSvg: @js(old('logo_svg', $settings['branding']['logo_svg'])),
 
-<button type="submit" 
-    class="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors">
-Salvar Configurações
-</button>
-</div>
-</form>
-</div>
+            // Handle SVG file upload
+            handleSvgUpload(event) {
+                const file = event.target.files[0];
 
-@push('scripts')
-<script>
-function settingsForm() {
-    return {
-        logoSvg: @js(old('logo_svg', $settings['branding']['logo_svg'])),
-        heroType: @js(old('hero_type', $settings['hero']['hero_type'])),
-        sectionsOrder: [
-            { id: 'featured', name: 'Produtos em Destaque', description: 'Produtos marcados como destaque' },
-            { id: 'categories', name: 'Categorias', description: 'Grid de categorias principais' },
-            { id: 'latest', name: 'Últimos Produtos', description: 'Produtos adicionados recentemente' },
-            { id: 'deals', name: 'Promoções', description: 'Produtos com desconto' },
-        ],
-        draggedIndex: null,
-
-        init() {
-            // Load saved order
-            const savedOrder = @js($settings['sections']['home_sections_order']);
-            if (savedOrder && Array.isArray(savedOrder)) {
-                // Reorder based on saved IDs
-                const ordered = [];
-                savedOrder.forEach(id => {
-                    const section = this.sectionsOrder.find(s => s.id === id);
-                    if (section) ordered.push(section);
-                });
-                // Add any missing sections at the end
-                this.sectionsOrder.forEach(section => {
-                    if (!ordered.find(s => s.id === section.id)) {
-                        ordered.push(section);
-                    }
-                });
-                this.sectionsOrder = ordered;
-            }
-            
-            this.updateJson();
-        },
-
-        dragStart(index) {
-            this.draggedIndex = index;
-        },
-
-        drop(dropIndex) {
-            if (this.draggedIndex === null) return;
-
-            const draggedItem = this.sectionsOrder[this.draggedIndex];
-            this.sectionsOrder.splice(this.draggedIndex, 1);
-            this.sectionsOrder.splice(dropIndex, 0, draggedItem);
-
-            this.draggedIndex = null;
-            this.updateJson();
-        },
-
-        updateJson() {
-            this.sectionsOrderJson = JSON.stringify(this.sectionsOrder.map(s => s.id));
-        },
-
-        get sectionsOrderJson() {
-            return JSON.stringify(this.sectionsOrder.map(s => s.id));
-        },
-
-        async deleteHeroImage() {
-            if (!confirm('Tem certeza que deseja remover a imagem do hero?')) {
-                return;
-            }
-
-            try {
-                const response = await fetch('{{ route("admin.settings.deleteHeroImage") }}', {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json',
-                    }
-                });
-
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    alert('Erro ao remover imagem');
+                if (!file) {
+                    return;
                 }
-            } catch (error) {
-                alert('Erro ao remover imagem');
+
+                // Validate file type
+                if (!file.name.endsWith('.svg')) {
+                    alert('Por favor, selecione um arquivo SVG válido.');
+                    event.target.value = '';
+                    return;
+                }
+
+                // Validate file size (512KB = 524288 bytes)
+                if (file.size > 524288) {
+                    alert('O arquivo SVG é muito grande. Tamanho máximo: 512KB.');
+                    event.target.value = '';
+                    return;
+                }
+
+                // Read file content and update preview
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const svgContent = e.target.result;
+
+                    // Validate SVG content
+                    if (svgContent.indexOf('<svg') === -1) {
+                        alert('Arquivo inválido. Certifique-se de que é um SVG válido.');
+                        event.target.value = '';
+                        return;
+                    }
+
+                    // Update preview
+                    this.logoSvg = svgContent;
+                };
+
+                reader.readAsText(file);
+            },
+
+            init() {
+                // Range slider for opacity
+                const opacitySlider = document.getElementById('hero_opacity');
+                const opacityValue = document.getElementById('opacity-value');
+                
+                if (opacitySlider && opacityValue) {
+                    opacitySlider.addEventListener('input', function() {
+                        opacityValue.textContent = this.value;
+                    });
+                }
             }
         }
     }
-}
-</script>
-@endpush
-</x-layouts.admin>
-
+    </script>
+    @endpush
+@endsection

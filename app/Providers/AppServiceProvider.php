@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Use Bootstrap 5 pagination views
         Paginator::useBootstrapFive();
-        
+
         // Register policies
         foreach ($this->policies as $model => $policy) {
             Gate::policy($model, $policy);
@@ -62,6 +62,20 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
 
             $view->with('headerCategories', $headerCategories);
+        });
+
+        // Share logo settings with header
+        View::composer('layouts.partials.header', function ($view) {
+            $settingsService = app(\App\Services\SettingsService::class);
+
+            $logoSettings = [
+                'logo_svg' => $settingsService->get('logo_svg', ''),
+                'logo_width' => $settingsService->get('logo_width', '180'),
+                'logo_height' => $settingsService->get('logo_height', '60'),
+                'site_name' => $settingsService->get('site_name', config('app.name')),
+            ];
+
+            $view->with('logoSettings', $logoSettings);
         });
     }
 }

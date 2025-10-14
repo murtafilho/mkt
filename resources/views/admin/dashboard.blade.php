@@ -151,18 +151,21 @@
                         <dl class="row g-2 small mb-0">
                             <div class="col-8"><dt>Total Produtos:</dt></div>
                             <div class="col-4 text-end"><dd class="fw-semibold mb-0">{{ $productsByStatus['total'] }}</dd></div>
-                            
+
                             <div class="col-8"><dt>Publicados:</dt></div>
                             <div class="col-4 text-end"><dd class="text-success fw-medium mb-0">{{ $productsByStatus['published'] }}</dd></div>
-                            
+
                             <div class="col-8"><dt>Rascunhos:</dt></div>
                             <div class="col-4 text-end"><dd class="text-muted fw-medium mb-0">{{ $productsByStatus['draft'] }}</dd></div>
-                            
+
                             <div class="col-12"><hr class="my-2"></div>
-                            
+
                             <div class="col-8"><dt>Total Clientes:</dt></div>
                             <div class="col-4 text-end"><dd class="fw-semibold mb-0">{{ $customersCount }}</dd></div>
                         </dl>
+                        <a href="{{ route('admin.reports.products') }}" class="btn btn-sm btn-outline-primary mt-3">
+                            Ver produtos →
+                        </a>
                     </div>
                 </div>
             </div>

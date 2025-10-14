@@ -1,7 +1,12 @@
-<x-layouts.admin>
-    <x-slot:header>Editar Categoria</x-slot>
-    <x-slot:title>Editar {{ $category->name }} - Admin</x-slot>
+@extends('layouts.admin')
 
+@section('header', 'Editar Categoria')
+
+@section('title')
+    Editar {{ $category->name }} - Admin
+@endsection
+
+@section('page-content')
     <div class="container" style="max-width: 800px;">
         <div class="card">
             <div class="card-body">
@@ -122,4 +127,4 @@
             </div>
         </div>
     </div>
-</x-layouts.admin>
+@endsection

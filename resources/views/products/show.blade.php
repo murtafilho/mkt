@@ -105,33 +105,8 @@
                         <div class="vstack gap-3 mb-4" x-data="{
                             quantity: 1,
                             isAdding: false,
-                            async addToCart() {
-                                if (this.isAdding) return;
-                                
-                                this.isAdding = true;
-                                
-                                try {
-                                    const result = await $store.cart.addItem({{ $product->id }}, this.quantity);
-                                    
-                                    if (result.success) {
-                                        const button = this.$refs.addButton;
-                                        const originalText = button.innerHTML;
-                                        button.innerHTML = '✓ Adicionado!';
-                                        button.classList.add('btn-success');
-                                        button.classList.remove('btn-secondary');
-                                        
-                                        setTimeout(() => {
-                                            button.innerHTML = originalText;
-                                            button.classList.remove('btn-success');
-                                            button.classList.add('btn-secondary');
-                                            this.isAdding = false;
-                                        }, 2000);
-                                    }
-                                } catch (error) {
-                                    console.error('Error adding to cart:', error);
-                                    alert('Erro ao adicionar produto ao carrinho');
-                                    this.isAdding = false;
-                                }
+                            submitForm() {
+                                this.$refs.addForm.submit();
                             }
                         }">
                             <div class="d-flex align-items-center gap-3">

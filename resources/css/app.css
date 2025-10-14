@@ -315,13 +315,13 @@ a:hover {
   visibility: hidden !important;
 }
 
-/* Alpine.js transitions (substituir classes Tailwind) */
+/* Alpine.js transitions - Cart Drawer */
 .opacity-0 {
   opacity: 0;
 }
 
 .opacity-100 {
-  opacity: 100;
+  opacity: 1;
 }
 
 .translate-x-full {
@@ -330,6 +330,28 @@ a:hover {
 
 .translate-x-0 {
   transform: translateX(0);
+}
+
+/* Transition classes for Alpine */
+.transition {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.ease-in {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.duration-200 {
+  transition-duration: 200ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 /* Transition utilities */

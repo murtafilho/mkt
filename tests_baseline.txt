@@ -1,0 +1,84 @@
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Admin\DashboardControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90madmin can access dashboard[39m[90m                                                                                 [39m [90m22.75s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot access dashboard[39m[90m                                                                              [39m [90m1.00s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcustomer cannot access dashboard[39m[90m                                                                            [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguest cannot access dashboard[39m[90m                                                                               [39m [90m0.21s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard displays correct sales metrics[39m[90m                                                                    [39m [90m1.19s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard displays correct order counts[39m[90m                                                                     [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard displays correct seller counts[39m[90m                                                                    [39m [90m0.08s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard displays recent orders[39m[90m                                                                            [39m [90m0.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard displays pending sellers[39m[90m                                                                          [39m [90m0.04s[39m  
+  [32;1m✓[39;22m[90m [39m[90mdashboard displays monthly sales chart data[39m[90m                                                                 [39m [90m0.03s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Admin\OrderControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90madmin can view all orders[39m[90m                                                                                   [39m [90m2.01s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can filter orders by status[39m[90m                                                                           [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can filter orders by seller[39m[90m                                                                           [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can filter orders by date range[39m[90m                                                                       [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can search orders by order number[39m[90m                                                                     [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can search orders by customer name[39m[90m                                                                    [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can view order details[39m[90m                                                                                [39m [90m1.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can update order status[39m[90m                                                                               [39m [90m0.94s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can update order status to shipped with tracking code[39m[90m                                                 [39m [90m0.34s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin cannot update order status to shipped without tracking code[39m[90m                                           [39m [90m0.10s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can cancel order[39m[90m                                                                                      [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot access admin orders[39m[90m                                                                           [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcustomer cannot access admin orders[39m[90m                                                                         [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguest cannot access admin orders[39m[90m                                                                            [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Admin\ReportControllerTest[39m
+  [32;1m✓[39;22m[90m [39m[90madmin can access reports dashboard[39m[90m                                                                          [39m [90m0.23s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot access reports dashboard[39m[90m                                                                      [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcustomer cannot access reports dashboard[39m[90m                                                                    [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mguest cannot access reports dashboard[39m[90m                                                                       [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can access sales report[39m[90m                                                                               [39m [90m0.58s[39m  
+  [32;1m✓[39;22m[90m [39m[90msales report displays correct metrics[39m[90m                                                                       [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90msales report can filter by date range[39m[90m                                                                       [39m [90m0.18s[39m  
+  [32;1m✓[39;22m[90m [39m[90msales report displays orders by status[39m[90m                                                                      [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90msales report can filter by seller[39m[90m                                                                           [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can export sales report to csv[39m[90m                                                                        [39m [90m0.11s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcsv export contains correct headers[39m[90m                                                                         [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcsv export respects date filters[39m[90m                                                                            [39m [90m0.09s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can access products report[39m[90m                                                                            [39m [90m0.77s[39m  
+  [32;1m✓[39;22m[90m [39m[90mproducts report displays correct metrics[39m[90m                                                                    [39m [90m0.20s[39m  
+  [32;1m✓[39;22m[90m [39m[90mproducts report can filter by seller[39m[90m                                                                        [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90mproducts report can filter by status[39m[90m                                                                        [39m [90m0.03s[39m  
+  [32;1m✓[39;22m[90m [39m[90madmin can access sellers report[39m[90m                                                                             [39m [90m2.94s[39m  
+  [32;1m✓[39;22m[90m [39m[90msellers report displays correct metrics[39m[90m                                                                     [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90msellers report can filter by status[39m[90m                                                                         [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90msellers report shows sales performance[39m[90m                                                                      [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot access sales report[39m[90m                                                                           [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot access products report[39m[90m                                                                        [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot access sellers report[39m[90m                                                                         [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mseller cannot export sales report[39m[90m                                                                           [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\AuthenticationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mlogin screen can be rendered[39m[90m                                                                                [39m [90m0.51s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can authenticate using the login screen[39m[90m                                                               [39m [90m1.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can not authenticate with invalid password[39m[90m                                                            [39m [90m0.34s[39m  
+  [32;1m✓[39;22m[90m [39m[90musers can logout[39m[90m                                                                                            [39m [90m0.05s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\EmailVerificationTest[39m
+  [32;1m✓[39;22m[90m [39m[90memail verification screen can be rendered[39m[90m                                                                   [39m [90m0.16s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail can be verified[39m[90m                                                                                       [39m [90m0.54s[39m  
+  [32;1m✓[39;22m[90m [39m[90memail is not verified with invalid hash[39m[90m                                                                     [39m [90m0.12s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordConfirmationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mconfirm password screen can be rendered[39m[90m                                                                     [39m [90m1.64s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be confirmed[39m[90m                                                                                   [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword is not confirmed with invalid password[39m[90m                                                             [39m [90m0.23s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordResetTest[39m
+  [32;1m✓[39;22m[90m [39m[90mreset password link screen can be rendered[39m[90m                                                                  [39m [90m1.59s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password link can be requested[39m[90m                                                                        [39m [90m3.05s[39m  
+  [32;1m✓[39;22m[90m [39m[90mreset password screen can be rendered[39m[90m                                                                       [39m [90m2.80s[39m  
+  [32;1m✓[39;22m[90m [39m[90mpassword can be reset with valid token[39m[90m                                                                      [39m [90m0.41s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\PasswordUpdateTest[39m
+  [32;1m✓[39;22m[90m [39m[90mpassword can be updated[39m[90m                                                                                     [39m [90m0.02s[39m  
+  [32;1m✓[39;22m[90m [39m[90mcorrect password must be provided to update password[39m[90m                                                        [39m [90m0.02s[39m  
+
+  [30;42;1m PASS [39;49;22m[39m Tests\Feature\Auth\RegistrationTest[39m
+  [32;1m✓[39;22m[90m [39m[90mregistration screen can be rendered[39m[90m                                                                         [39m [90m0.37s[39m  
+  [32;1m✓[39;22m[90m [39m[90mnew users can register[39m[90m                                                                                     [39m [90m16.29s[39m  

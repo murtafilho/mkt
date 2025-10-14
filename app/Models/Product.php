@@ -177,8 +177,8 @@ class Product extends Model implements HasMedia
     {
         $this->addMediaCollection('product_images')
             ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'])
-            ->useFallbackUrl('/images/product-placeholder.png')
-            ->useFallbackPath(public_path('/images/product-placeholder.png'));
+            ->useFallbackUrl('/images/product-placeholder.svg')
+            ->useFallbackPath(public_path('/images/product-placeholder.svg'));
     }
 
     /**

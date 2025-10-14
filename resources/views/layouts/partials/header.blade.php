@@ -1,55 +1,57 @@
-{{-- Top Bar - Localização e Links Úteis --}}
-<div class="top-bar d-none d-md-block">
-    <div class="container px-4 px-lg-5">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-                <small class="text-muted">
-                    <i class="bi bi-geo-alt"></i>
-                    Atendemos: Vale do Sol, Pasárgada, Jardim Canadá
-                </small>
-            </div>
-            <div class="col-md-6 text-end">
-                <small>
-                    <a href="#" class="text-decoration-none">Ajuda</a>
-                    <span class="mx-2">|</span>
-                    <a href="{{ route('register') }}" class="text-decoration-none">Vender no Marketplace</a>
-                </small>
-            </div>
-        </div>
-    </div>
-</div>
-
 {{-- Main Header --}}
-<header class="sticky-top">
-    <div class="container px-4 px-lg-5">
-        <div class="row align-items-center header-content g-2 g-lg-3">
-            {{-- Logo (Mobile: 50% | Desktop: 2 cols ~16.6%) --}}
-            <div class="col-6 col-lg-2">
-                <a class="navbar-brand" href="{{ route('home') }}">
-                    <i class="bi bi-sun me-2"></i>
-                    {{ config('app.name') }}
+<header class="sticky-top" style="min-height: 80px; display: flex; align-items: center;">
+    <div class="container px-3 px-lg-4 h-100">
+        <div class="row align-items-center justify-content-between g-2 g-lg-3 h-100">
+            {{-- Logo + Site Name (Mobile: 50% | Desktop: 3 cols ~25%) --}}
+            <div class="col-6 col-lg-3">
+                <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+                    @if(!empty($logoSettings['logo_svg']))
+                        {{-- SVG Logo + Site Name --}}
+                        <div class="logo-svg-container me-2" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+                            <style>
+                                .logo-svg-container svg {
+                                    fill: #588c4c !important;
+                                    color: #588c4c !important;
+                                }
+                                .logo-svg-container svg path,
+                                .logo-svg-container svg circle,
+                                .logo-svg-container svg rect,
+                                .logo-svg-container svg polygon,
+                                .logo-svg-container svg g {
+                                    fill: #588c4c !important;
+                                    stroke: #588c4c !important;
+                                }
+                            </style>
+                            {!! $logoSettings['logo_svg'] !!}
+                        </div>
+                        <span class="site-name d-none d-md-inline" style="font-weight: 600; color: #588c4c; font-size: 1.5rem;">{{ $logoSettings['site_name'] }}</span>
+                    @else
+                        {{-- Fallback: Icon + Text --}}
+                        <i class="bi bi-shop me-2"></i>
+                        <span class="d-none d-md-inline" style="font-weight: 600; color: #588c4c; font-size: 1.5rem;">{{ $logoSettings['site_name'] }}</span>
+                    @endif
                 </a>
             </div>
 
-            {{-- Search Bar (Desktop: 7 cols ~58.3%) - Desktop Only --}}
-            <div class="col-lg-7 d-none d-lg-block">
+            {{-- Search Bar (Desktop: 6 cols ~50%) - Desktop Only --}}
+            <div class="col-lg-6 d-none d-lg-block">
                 @include('components.search-bar')
             </div>
 
-            {{-- User Actions (Mobile: 50% | Desktop: 3 cols 25%) --}}
+            {{-- User Actions (Mobile: 50% | Desktop: 3 cols ~25%) --}}
             <div class="col-6 col-lg-3">
-                <div class="user-actions" x-data>
-                    {{-- Cart Button --}}
-                    <button class="btn btn-icon-cart position-relative" 
-                            type="button"
-                            data-bs-toggle="offcanvas" 
-                            data-bs-target="#cartOffcanvas"
-                            aria-label="Carrinho de compras">
+                <div class="user-actions">
+                    {{-- Cart Button - Bootstrap Offcanvas --}}
+                    <button
+                        type="button"
+                        class="btn btn-icon-cart position-relative"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#cartOffcanvas"
+                        aria-controls="cartOffcanvas"
+                        aria-label="Carrinho de compras">
                         <i class="bi bi-cart"></i>
-                        <span x-show="$store.cart.count > 0" 
-                              x-text="$store.cart.count"
-                              class="cart-badge"
-                              x-transition></span>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                              style="font-size: 0.7rem; display: none;">0</span>
                     </button>
 
                     {{-- User Menu --}}
@@ -121,63 +123,10 @@
             </div>
 
             {{-- Mobile Search (100%) --}}
-            <div class="col-12 d-lg-none mt-3">
+            <div class="col-12 d-lg-none">
                 @include('components.search-bar')
             </div>
         </div>
     </div>
-
-    {{-- Navigation Menu --}}
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container px-4 px-lg-5">
-            {{-- Mobile Toggle --}}
-            <button class="navbar-toggler" 
-                    type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#navbarSupportedContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            {{-- Nav Items --}}
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ route('home') }}">
-                            <i class="bi bi-house me-1"></i>Início
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('produtos*') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                            <i class="bi bi-grid-3x3-gap me-1"></i>Produtos
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" 
-                           href="#" 
-                           role="button" 
-                           data-bs-toggle="dropdown">
-                            <i class="bi bi-tag me-1"></i>Categorias
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('products.index') }}">Todas as Categorias</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            @foreach($headerCategories ?? [] as $category)
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('products.index', ['category' => $category->id]) }}">
-                                        {{ $category->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#sobre">
-                            <i class="bi bi-info me-1"></i>Sobre
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 </header>
 

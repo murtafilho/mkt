@@ -1,0 +1,12 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#f8f9fa"/>
+  <g transform="translate(150, 150)">
+    <rect x="0" y="0" width="100" height="60" fill="#dee2e6" rx="4"/>
+    <rect x="10" y="10" width="40" height="40" fill="#adb5bd" rx="2"/>
+    <rect x="55" y="15" width="35" height="8" fill="#adb5bd" rx="2"/>
+    <rect x="55" y="28" width="30" height="6" fill="#ced4da" rx="2"/>
+    <rect x="55" y="38" width="25" height="6" fill="#ced4da" rx="2"/>
+  </g>
+  <text x="200" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#6c757d">Sem imagem</text>
+</svg>
+

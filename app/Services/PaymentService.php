@@ -167,6 +167,16 @@ class PaymentService
                 // Remove formatting (keep only numbers)
                 $cleanCpfCnpj = preg_replace('/\D/', '', $user->cpf_cnpj);
 
+                // 🧪 SANDBOX MODE: Use test CPF for Mercado Pago sandbox environment
+                // Docs: https://www.mercadopago.com.br/developers/pt/docs/checkout-api-v2/integration-test/pix
+                if (config('services.mercadopago.test_mode')) {
+                    $cleanCpfCnpj = '19119119100'; // Official Mercado Pago test CPF
+                    Log::info('PaymentService::createPayment - Using TEST CPF for sandbox', [
+                        'test_cpf' => $cleanCpfCnpj,
+                        'original_cpf' => $user->cpf_cnpj,
+                    ]);
+                }
+
                 $paymentRequest['payer']['identification'] = [
                     'type' => strlen($cleanCpfCnpj) === 11 ? 'CPF' : 'CNPJ',
                     'number' => $cleanCpfCnpj,

@@ -9,7 +9,7 @@
         @yield('page-content')
     </main>
 
-    {{-- Cart Drawer (global component) --}}
+    {{-- Cart Drawer (Alpine.js) --}}
     <x-cart-drawer />
 
     {{-- Footer --}}

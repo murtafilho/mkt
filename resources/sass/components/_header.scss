@@ -49,14 +49,14 @@ header.sticky-top {
 }
 
 .header-content {
-    padding: 1.25rem 0; // Otimizado
+    padding: 0.75rem 0; // Espaçamento vertical centralizado
 
     @media (max-width: 991.98px) {
-        padding: 1rem 0;
+        padding: 0.625rem 0;
     }
 
     @media (max-width: 767.98px) {
-        padding: 0.875rem 0;
+        padding: 0.5rem 0;
     }
 
     // Otimizar espaçamento das colunas
@@ -646,5 +646,40 @@ footer {
     &:hover {
         color: $primary;
         background: rgba($primary, 0.05);
+    }
+}
+
+/**
+ * SVG Logo Container
+ * Ensures SVG scales properly and maintains aspect ratio without breaking header height
+ */
+.logo-svg-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 180px;
+    max-height: 48px; // Fixed max height to prevent header expansion
+    height: 48px; // Fixed height
+    overflow: hidden; // Prevent overflow
+
+    svg {
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        display: block;
+    }
+
+    // Responsive adjustments for mobile
+    @media (max-width: 767.98px) {
+        max-width: 140px;
+        max-height: 40px;
+        height: 40px;
+    }
+
+    @media (max-width: 575.98px) {
+        max-width: 120px;
+        max-height: 36px;
+        height: 36px;
     }
 }

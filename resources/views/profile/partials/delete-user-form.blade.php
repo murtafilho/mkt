@@ -1,55 +1,75 @@
-<section class="space-y-6">
- <header>
- <h2 class="text-lg font-medium text-neutral-900">
- Excluir Conta
- </h2>
+<section>
+    <header class="mb-4">
+        <h2 class="h5 fw-bold text-danger mb-2">
+            Excluir Conta
+        </h2>
+        <p class="text-muted small">
+            Após a exclusão da sua conta, todos os seus recursos e dados serão permanentemente excluídos. 
+            Antes de excluir sua conta, faça o download de todos os dados ou informações que deseja manter.
+        </p>
+    </header>
 
- <p class="mt-1 text-sm text-neutral-600">
- Após a exclusão da sua conta, todos os seus recursos e dados serão permanentemente excluídos. Antes de excluir sua conta, faça o download de todos os dados ou informações que deseja manter.
- </p>
- </header>
+    <button type="button" 
+            class="btn btn-danger" 
+            data-bs-toggle="modal" 
+            data-bs-target="#confirmUserDeletion">
+        Excluir Conta
+    </button>
 
- <x-danger-button
- x-data=""
- x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
- >Excluir Conta</x-danger-button>
+    {{-- Modal de Confirmação --}}
+    <div class="modal fade" id="confirmUserDeletion" tabindex="-1" aria-labelledby="confirmUserDeletionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" action="{{ route('profile.destroy') }}">
+                    @csrf
+                    @method('delete')
 
- <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
- <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
- @csrf
- @method('delete')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmUserDeletionLabel">
+                            Tem certeza de que deseja excluir sua conta?
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
 
- <h2 class="text-lg font-medium text-neutral-900">
- Tem certeza de que deseja excluir sua conta?
- </h2>
+                    <div class="modal-body">
+                        <p class="text-muted small mb-3">
+                            Após a exclusão da sua conta, todos os seus recursos e dados serão permanentemente excluídos. 
+                            Por favor, digite sua senha para confirmar que deseja excluir permanentemente sua conta.
+                        </p>
 
- <p class="mt-1 text-sm text-neutral-600">
- Após a exclusão da sua conta, todos os seus recursos e dados serão permanentemente excluídos. Por favor, digite sua senha para confirmar que deseja excluir permanentemente sua conta.
- </p>
+                        <div class="mb-3">
+                            <label for="password" class="visually-hidden">Senha</label>
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   class="form-control @error('password', 'userDeletion') is-invalid @enderror" 
+                                   placeholder="Senha">
+                            @error('password', 'userDeletion')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
 
- <div class="mt-6">
- <x-input-label for="password" value="Senha" class="sr-only" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-danger">
+                            Excluir Conta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
- <x-text-input
- id="password"
- name="password"
- type="password"
- class="mt-1 block w-3/4"
- placeholder="Senha"
- />
-
- <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
- </div>
-
- <div class="mt-6 flex justify-end">
- <x-secondary-button x-on:click="$dispatch('close')">
- Cancelar
- </x-secondary-button>
-
- <x-danger-button class="ms-3">
- Excluir Conta
- </x-danger-button>
- </div>
- </form>
- </x-modal>
+    {{-- Auto-abrir modal se houver erros --}}
+    @if($errors->userDeletion->isNotEmpty())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var modal = new bootstrap.Modal(document.getElementById('confirmUserDeletion'));
+                modal.show();
+            });
+        </script>
+    @endif
 </section>

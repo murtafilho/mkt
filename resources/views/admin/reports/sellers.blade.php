@@ -1,170 +1,192 @@
-<x-layouts.admin>
-    <x-slot:header>Relatório de Vendedores</x-slot>
-    <x-slot:title>Relatório de Vendedores - Admin</x-slot>
+@extends('layouts.admin')
 
-    <div class="space-y-6">
-        <div>
-            <a href="{{ route('admin.reports.index') }}" class="text-sm text-primary-600 hover:text-primary-700">← Voltar para Relatórios</a>
-        </div>
+@section('header', 'Relatório de Vendedores')
+@section('title', 'Relatório de Vendedores - Admin')
 
-        <!-- Filters -->
-        <div class="bg-white shadow-sm border-b border-neutral-200 rounded-lg p-6">
-            <form method="GET" class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="status" class="block text-sm font-medium mb-2">Status</label>
-                        <select name="status" id="status" class="w-full">
+@section('page-content')
+    <div class="mb-4">
+        <a href="{{ route('admin.reports.index') }}" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>
+            Voltar para Relatórios
+        </a>
+    </div>
+
+    {{-- Filters --}}
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="status" class="form-label">Status</label>
+                        <select name="status" id="status" class="form-select">
                             <option value="">Todos</option>
                             <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pendente</option>
                             <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Ativo</option>
                             <option value="suspended" {{ request('status') === 'suspended' ? 'selected' : '' }}>Suspenso</option>
                         </select>
                     </div>
-                    <div class="flex items-end gap-2">
-                        <button type="submit" class="btn-primary">Filtrar</button>
-                        <a href="{{ route('admin.reports.sellers') }}" class="btn-secondary">Limpar</a>
+                    <div class="col-md-6 d-flex align-items-end gap-2">
+                        <button type="submit" class="btn btn-primary">Filtrar</button>
+                        <a href="{{ route('admin.reports.sellers') }}" class="btn btn-outline-secondary">Limpar</a>
                     </div>
                 </div>
             </form>
         </div>
+    </div>
 
-        <!-- Filter Chips -->
-        @php
-        $filterChips = [];
+    {{-- Filter Chips --}}
+    @php
+    $filterChips = [];
 
-        if (request('status')) {
-            $statusLabels = [
-                'pending' => 'Pendente',
-                'active' => 'Ativo',
-                'suspended' => 'Suspenso',
-            ];
-            $filterChips[] = [
-                'label' => 'Status',
-                'value' => request('status'),
-                'display' => $statusLabels[request('status')] ?? request('status'),
-                'removeUrl' => request()->fullUrlWithQuery(['status' => null]),
-            ];
-        }
-        @endphp
+    if (request('status')) {
+        $statusLabels = [
+            'pending' => 'Pendente',
+            'active' => 'Ativo',
+            'suspended' => 'Suspenso',
+        ];
+        $filterChips[] = [
+            'label' => 'Status',
+            'value' => request('status'),
+            'display' => $statusLabels[request('status')] ?? request('status'),
+            'removeUrl' => request()->fullUrlWithQuery(['status' => null]),
+        ];
+    }
+    @endphp
 
-        <x-filter-chips :filters="$filterChips" />
+    <x-filter-chips :filters="$filterChips" />
 
-        <!-- Metrics -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="bg-white shadow-sm border-b border-neutral-200 rounded-lg p-6">
-                <h3 class="text-sm font-medium text-neutral-500 mb-2">Total de Vendedores</h3>
-                <p class="text-3xl font-bold">{{ $totalSellers }}</p>
-            </div>
-            <div class="bg-white shadow-sm border-b border-neutral-200 rounded-lg p-6">
-                <h3 class="text-sm font-medium text-neutral-500 mb-2">Ativos</h3>
-                <p class="text-3xl font-bold text-success-600">{{ $activeSellers }}</p>
-            </div>
-            <div class="bg-white shadow-sm border-b border-neutral-200 rounded-lg p-6">
-                <h3 class="text-sm font-medium text-neutral-500 mb-2">Pendentes</h3>
-                <p class="text-3xl font-bold text-warning-600">{{ $pendingSellers }}</p>
-            </div>
-            <div class="bg-white shadow-sm border-b border-neutral-200 rounded-lg p-6">
-                <h3 class="text-sm font-medium text-neutral-500 mb-2">Suspensos</h3>
-                <p class="text-3xl font-bold text-danger-600">{{ $suspendedSellers }}</p>
+    {{-- Metrics --}}
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="small text-muted mb-2">Total de Vendedores</h3>
+                    <p class="display-6 fw-bold mb-0">{{ $totalSellers }}</p>
+                </div>
             </div>
         </div>
-
-        <!-- Sellers Table -->
-        <div class="bg-white shadow-sm border-b border-neutral-200 rounded-lg overflow-hidden">
-            <div class="px-6 py-4 border-b">
-                <h3 class="text-lg font-medium">
-                    Performance dos Vendedores
-                    <span class="text-sm font-normal text-neutral-500">
-                        ({{ $sellers->total() }} {{ $sellers->total() === 1 ? 'vendedor' : 'vendedores' }})
-                    </span>
-                </h3>
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="small text-muted mb-2">Ativos</h3>
+                    <p class="display-6 fw-bold mb-0 text-success">{{ $activeSellers }}</p>
+                </div>
             </div>
-            @if($sellers->count() > 0)
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-neutral-200">
-                        <thead class="bg-neutral-50">
-                            <tr>
-                                <x-sortable-th column="store_name" label="Vendedor" :current-sort="$sortField" :current-direction="$sortDirection" />
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Status</th>
-                                <x-sortable-th column="products_count" label="Produtos" :current-sort="$sortField" :current-direction="$sortDirection" />
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Estoque</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">Pedidos</th>
-                                <x-sortable-th column="revenue" label="Receita" :current-sort="$sortField" :current-direction="$sortDirection" />
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-neutral-200">
-                            @foreach($sellers as $seller)
-                                <tr class="hover:bg-neutral-50">
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm font-medium">
-                                            <a href="{{ route('admin.sellers.show', $seller) }}" class="hover:text-primary-600">
-                                                {{ $seller->store_name }}
-                                            </a>
-                                        </div>
-                                        <div class="text-xs text-neutral-500">{{ $seller->user->name }}</div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span @class([
-                                            'px-2 inline-flex text-xs leading-5 font-semibold rounded-full',
-                                            'bg-green-100 text-green-800' => $seller->status === 'active',
-                                            'bg-yellow-100 text-yellow-800' => $seller->status === 'pending',
-                                            'bg-red-100 text-red-800' => $seller->status === 'suspended',
-                                        ])>
-                                            @if($seller->status === 'active')
-                                                Ativo
-                                            @elseif($seller->status === 'pending')
-                                                Pendente
-                                            @else
-                                                Suspenso
-                                            @endif
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm">{{ $seller->products_count ?? 0 }}</td>
-                                    <td class="px-6 py-4 text-sm">{{ $seller->products_sum_stock ?? 0 }}</td>
-                                    <td class="px-6 py-4 text-sm font-semibold">{{ $seller->total_orders ?? 0 }}</td>
-                                    <td class="px-6 py-4 text-sm font-semibold">R$ {{ number_format($seller->total_revenue ?? 0, 2, ',', '.') }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="small text-muted mb-2">Pendentes</h3>
+                    <p class="display-6 fw-bold mb-0 text-warning">{{ $pendingSellers }}</p>
                 </div>
-
-                <!-- Pagination -->
-                <div class="px-6 py-4 border-t">
-                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center space-x-2">
-                            <label for="per_page" class="text-sm text-neutral-600">Items por página:</label>
-                            <select name="per_page" id="per_page"
-                                onchange="window.location='{{ request()->fullUrlWithQuery(['per_page' => '']) }}' + this.value"
-                                class="rounded-md border-neutral-300 text-sm focus:border-primary-500 focus:ring-primary-500">
-                                <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20</option>
-                                <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
-                                <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
-                            </select>
-                            <span class="text-sm text-neutral-600">
-                                Mostrando {{ $sellers->firstItem() }} a {{ $sellers->lastItem() }} de {{ $sellers->total() }} resultados
-                            </span>
-                        </div>
-
-                        <div>
-                            {{ $sellers->links() }}
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="small text-muted mb-2">Suspensos</h3>
+                    <p class="display-6 fw-bold mb-0 text-danger">{{ $suspendedSellers }}</p>
                 </div>
-            @else
-                <div class="px-6 py-12 text-center">
-                    <svg class="mx-auto h-12 w-12 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                    <p class="mt-4 text-sm text-neutral-500">
-                        @if(request()->hasAny(['status']))
-                            Nenhum vendedor encontrado com os filtros aplicados.
-                        @else
-                            Nenhum vendedor cadastrado.
-                        @endif
-                    </p>
-                </div>
-            @endif
+            </div>
         </div>
     </div>
-</x-layouts.admin>
+
+    {{-- Sellers Table --}}
+    <div class="card">
+        <div class="card-header bg-white py-3">
+            <h3 class="h5 mb-0">
+                Performance dos Vendedores
+                <span class="small fw-normal text-muted">
+                    ({{ $sellers->total() }} {{ $sellers->total() === 1 ? 'vendedor' : 'vendedores' }})
+                </span>
+            </h3>
+        </div>
+
+        @if($sellers->count() > 0)
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <x-sortable-th column="store_name" label="Vendedor" :current-sort="$sortField" :current-direction="$sortDirection" />
+                            <th scope="col" class="text-uppercase small fw-semibold">Status</th>
+                            <x-sortable-th column="products_count" label="Produtos" :current-sort="$sortField" :current-direction="$sortDirection" />
+                            <th scope="col" class="text-uppercase small fw-semibold">Estoque</th>
+                            <th scope="col" class="text-uppercase small fw-semibold">Pedidos</th>
+                            <x-sortable-th column="revenue" label="Receita" :current-sort="$sortField" :current-direction="$sortDirection" />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($sellers as $seller)
+                            <tr>
+                                <td>
+                                    <div class="small fw-medium">
+                                        <a href="{{ route('admin.sellers.show', $seller) }}" class="text-decoration-none">
+                                            {{ $seller->store_name }}
+                                        </a>
+                                    </div>
+                                    <div class="small text-muted">{{ $seller->user->name }}</div>
+                                </td>
+                                <td>
+                                    <span @class([
+                                        'badge',
+                                        'bg-success' => $seller->status === 'active',
+                                        'bg-warning text-dark' => $seller->status === 'pending',
+                                        'bg-danger' => $seller->status === 'suspended',
+                                    ])>
+                                        @if($seller->status === 'active')
+                                            Ativo
+                                        @elseif($seller->status === 'pending')
+                                            Pendente
+                                        @else
+                                            Suspenso
+                                        @endif
+                                    </span>
+                                </td>
+                                <td class="small">{{ $seller->products_count ?? 0 }}</td>
+                                <td class="small">{{ $seller->products_sum_stock ?? 0 }}</td>
+                                <td class="small fw-semibold">{{ $seller->total_orders ?? 0 }}</td>
+                                <td class="small fw-semibold">R$ {{ number_format($seller->total_revenue ?? 0, 2, ',', '.') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- Pagination --}}
+            <div class="card-footer bg-white border-top py-3">
+                <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <label for="per_page" class="small text-muted mb-0">Items por página:</label>
+                        <select name="per_page" id="per_page"
+                            onchange="window.location='{{ request()->fullUrlWithQuery(['per_page' => '']) }}' + this.value"
+                            class="form-select form-select-sm" style="width: auto;">
+                            <option value="20" {{ request('per_page', 20) == 20 ? 'selected' : '' }}>20</option>
+                            <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                        <span class="small text-muted">
+                            Mostrando {{ $sellers->firstItem() }} a {{ $sellers->lastItem() }} de {{ $sellers->total() }} resultados
+                        </span>
+                    </div>
+
+                    <div>
+                        {{ $sellers->links() }}
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="card-body text-center py-5">
+                <svg class="mx-auto mb-3" width="48" height="48" fill="currentColor" style="color: #6c757d;" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <p class="small text-muted mb-0">
+                    @if(request()->hasAny(['status']))
+                        Nenhum vendedor encontrado com os filtros aplicados.
+                    @else
+                        Nenhum vendedor cadastrado.
+                    @endif
+                </p>
+            </div>
+        @endif
+    </div>
+@endsection

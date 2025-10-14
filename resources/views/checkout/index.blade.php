@@ -71,6 +71,30 @@
  </div>
  </div>
 
+ {{-- CPF/CNPJ (obrigatório para PIX e Nota Fiscal) --}}
+ <div class="mb-3">
+ <label for="payer_cpf_cnpj" class="form-label small fw-medium">
+ CPF/CNPJ
+ <span class="text-danger">*</span>
+ <span class="badge bg-primary ms-1" style="font-size: 0.7rem;">Necessário para PIX e NFe</span>
+ </label>
+ <input
+ type="text"
+ name="payer_cpf_cnpj"
+ id="payer_cpf_cnpj"
+ value="{{ auth()->user()->cpf_cnpj ?? '' }}"
+ data-mask="cpf-cnpj"
+ placeholder="000.000.000-00 ou 00.000.000/0000-00"
+ required
+ maxlength="18"
+ class="form-control"
+ style="max-width: 350px;"
+ />
+ <small class="form-text text-muted">
+ Obrigatório para emissão da Nota Fiscal e pagamentos via PIX
+ </small>
+ </div>
+
  {{-- CEP with auto-lookup --}}
  <div class="mb-3" style="max-width: 50%;" x-data="checkoutCepLookup()">
  <label for="postal_code" class="form-label small fw-medium">
@@ -470,6 +494,29 @@ document.addEventListener('DOMContentLoaded', async function() {
         console.error('❌ Error initializing Mercado Pago:', error);
         alert('Erro ao carregar sistema de pagamento. Por favor, recarregue a página.');
         return;
+    }
+
+    // Máscara para CPF/CNPJ
+    const cpfCnpjInput = document.getElementById('payer_cpf_cnpj');
+    if (cpfCnpjInput) {
+        cpfCnpjInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+
+            if (value.length <= 11) {
+                // CPF: 000.000.000-00
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            } else {
+                // CNPJ: 00.000.000/0000-00
+                value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+
+            e.target.value = value;
+        });
     }
 
  processBtn.addEventListener('click', async function() {

@@ -44,7 +44,7 @@
                             <span class="fw-medium">Categorias</span>
                         </a>
 
-                        <a href="#" class="d-flex align-items-center rounded px-3 py-2 text-decoration-none text-secondary hover-bg-primary-subtle">
+                        <a href="{{ route('admin.reports.products') }}" class="d-flex align-items-center rounded px-3 py-2 text-decoration-none {{ str_starts_with($currentRoute, 'admin.reports.products') ? 'text-white bg-primary' : 'text-secondary hover-bg-primary-subtle' }}">
                             <svg class="me-3 flex-shrink-0" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                             </svg>
@@ -237,7 +237,7 @@
                         <span class="fw-medium">Categorias</span>
                     </a>
 
-                    <a href="#" class="d-flex align-items-center rounded px-3 py-2 text-decoration-none text-secondary hover-bg-primary-subtle">
+                    <a href="{{ route('admin.reports.products') }}" class="d-flex align-items-center rounded px-3 py-2 text-decoration-none {{ str_starts_with($currentRoute, 'admin.reports.products') ? 'text-white bg-primary' : 'text-secondary hover-bg-primary-subtle' }}">
                         <svg class="me-3" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>

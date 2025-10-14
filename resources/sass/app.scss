@@ -331,3 +331,155 @@ footer {
         display: none !important;
     }
 }
+
+/**
+ * Cart Drawer - Alpine.js Puro
+ * Drawer lateral com transições suaves
+ */
+
+// Alpine.js x-cloak
+[x-cloak] {
+    display: none !important;
+}
+
+// Overlay (fundo escuro)
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1050;
+    backdrop-filter: blur(2px);
+}
+
+// Drawer Lateral
+.cart-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 420px;
+    height: 100vh;
+    background-color: white;
+    z-index: 1051;
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%); // Inicial (fora da tela)
+    transition: transform 0.3s ease;
+
+    // Mobile
+    @media (max-width: 767.98px) {
+        max-width: 100%;
+    }
+}
+
+// Classes de transição do Alpine.js
+.translate-x-full {
+    transform: translateX(100%);
+}
+
+.translate-x-0 {
+    transform: translateX(0);
+}
+
+.transition {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ease-out {
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+.ease-in {
+    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+// Header do Drawer
+.cart-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+
+    h5 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: $dark;
+    }
+
+    .btn-close {
+        flex-shrink: 0;
+    }
+}
+
+// Body do Drawer (scrollável)
+.cart-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+
+        &:hover {
+            background: #555;
+        }
+    }
+}
+
+// Seller Group
+.cart-seller-group {
+    .bi-shop {
+        font-size: 1.125rem;
+    }
+}
+
+// Cart Item
+.cart-item {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: $border-radius;
+    flex-shrink: 0;
+}
+
+// Footer do Drawer (fixo)
+.cart-drawer-footer {
+    padding: 1.5rem;
+    border-top: 2px solid #dee2e6;
+    background-color: #f8f9fa;
+
+    .h5 {
+        margin: 0;
+    }
+}

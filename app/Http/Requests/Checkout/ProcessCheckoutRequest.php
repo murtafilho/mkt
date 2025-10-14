@@ -26,6 +26,7 @@ class ProcessCheckoutRequest extends FormRequest
             // Shipping address fields
             'recipient_name' => ['required', 'string', 'max:255'],
             'recipient_phone' => ['required', 'string', 'max:20'],
+            'payer_cpf_cnpj' => ['required', 'string', 'max:18'], // CPF (11) ou CNPJ (14) + formatação
             'street' => ['required', 'string', 'max:255'],
             'number' => ['required', 'string', 'max:10'],
             'complement' => ['nullable', 'string', 'max:255'],
@@ -64,6 +65,9 @@ class ProcessCheckoutRequest extends FormRequest
 
             'recipient_phone.required' => 'O telefone do destinatário é obrigatório.',
             'recipient_phone.max' => 'O telefone não pode ter mais de 20 caracteres.',
+
+            'payer_cpf_cnpj.required' => 'O CPF/CNPJ é obrigatório para emissão da NFe e pagamento via PIX.',
+            'payer_cpf_cnpj.max' => 'O CPF/CNPJ não pode ter mais de 18 caracteres.',
 
             'street.required' => 'O endereço é obrigatório.',
             'street.max' => 'O endereço não pode ter mais de 255 caracteres.',

@@ -46,7 +46,7 @@ function productGallery() {
  images: @json($product->getMedia('product_images')->map(fn($m) => $m->getUrl('medium'))),
 
  get currentImage() {
- return this.images[this.currentIndex] || '/images/product-placeholder.png';
+ return this.images[this.currentIndex] || '/images/product-placeholder.svg';
  },
 
  selectImage(index) {

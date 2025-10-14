@@ -70,6 +70,7 @@ class SettingsController extends Controller
 
             // Logo SVG
             'logo_svg' => 'nullable|string',
+            'logo_svg_file' => 'nullable|file|mimes:svg|max:512', // SVG file upload (512KB max)
             'logo_width' => 'nullable|integer|min:50|max:500',
             'logo_height' => 'nullable|integer|min:20|max:200',
 
@@ -96,8 +97,20 @@ class SettingsController extends Controller
                 }
             }
 
-            // Save logo SVG
-            if (isset($validated['logo_svg'])) {
+            // Handle logo SVG upload
+            if ($request->hasFile('logo_svg_file')) {
+                $svgContent = file_get_contents($request->file('logo_svg_file')->getRealPath());
+
+                // Basic SVG validation
+                if (strpos($svgContent, '<svg') !== false) {
+                    $this->settingsService->set('logo_svg', $svgContent, 'string', 'branding');
+                } else {
+                    return back()
+                        ->withInput()
+                        ->with('error', 'Arquivo SVG inválido. Certifique-se de fazer upload de um arquivo SVG válido.');
+                }
+            } elseif (isset($validated['logo_svg'])) {
+                // Save logo SVG from textarea
                 $this->settingsService->set('logo_svg', $validated['logo_svg'], 'string', 'branding');
             }
 

@@ -106,6 +106,16 @@ class CheckoutController extends Controller
                 'validated_keys' => array_keys($validated),
             ]);
 
+            // Save CPF/CNPJ in user profile if empty (hybrid approach for minimal friction)
+            $user = auth()->user();
+            if (empty($user->cpf_cnpj) && !empty($validated['payer_cpf_cnpj'])) {
+                $user->cpf_cnpj = preg_replace('/\D/', '', $validated['payer_cpf_cnpj']); // Remove formatting
+                $user->save();
+                Log::info('CheckoutController::process - CPF/CNPJ saved to user profile', [
+                    'user_id' => $user->id,
+                ]);
+            }
+
             // 1. Save or update address in user_addresses (reusable for future orders)
             /** @var \App\Models\UserAddress $userAddress */
             $userAddress = auth()->user()->addresses()->updateOrCreate(

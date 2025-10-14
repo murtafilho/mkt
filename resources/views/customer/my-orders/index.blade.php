@@ -1,8 +1,6 @@
 @extends('layouts.public')
 
-@section('content')
-<div class="py-5"></div> {{-- Espaçamento após header --}}
-
+@section('page-content')
 <div class="container py-5">
     <div class="row mb-4">
         <div class="col-12">

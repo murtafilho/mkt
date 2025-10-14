@@ -28,10 +28,11 @@ class CartController extends Controller
             auth()->user(),
             session()->getId()
         );
-        $subtotal = $this->cartService->calculateTotal(
+        $totals = $this->cartService->calculateTotal(
             auth()->user(),
             session()->getId()
         );
+        $subtotal = $totals['subtotal'] ?? 0;
 
         return view('cart.index', compact('cartItems', 'itemsBySeller', 'subtotal'));
     }

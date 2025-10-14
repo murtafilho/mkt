@@ -1,7 +1,9 @@
-<x-layouts.admin>
-    <x-slot:header>Nova Categoria</x-slot>
-    <x-slot:title>Nova Categoria - Admin</x-slot>
+@extends('layouts.admin')
 
+@section('header', 'Nova Categoria')
+@section('title', 'Nova Categoria - Admin')
+
+@section('page-content')
     <div class="container" style="max-width: 800px;">
         <div class="card">
             <div class="card-body">
@@ -141,4 +143,4 @@
     });
     </script>
     @endpush
-</x-layouts.admin>
+@endsection
