@@ -9,8 +9,20 @@
             <div class="d-flex flex-column flex-grow-1 overflow-auto bg-white border-end">
                     {{-- Logo/Brand --}}
                     <div class="d-flex align-items-center flex-shrink-0 px-3 border-bottom" style="height: 4rem;">
-                        <a href="/" class="text-decoration-none fs-5 fw-bold text-dark">
-                            {{ config('app.name') }} <span class="fs-6 fw-normal text-secondary">Vendedor</span>
+                        <a href="/" class="d-flex align-items-center text-decoration-none">
+                            @if(!empty($logoSettings['logo_svg']))
+                                <div class="logo-svg-container me-2" style="width: 40px; height: 40px;">
+                                    {!! $logoSettings['logo_svg'] !!}
+                                </div>
+                                <span class="fs-5 fw-bold text-dark">
+                                    {{ $logoSettings['site_name'] }} <span class="fs-6 fw-normal text-secondary">Vendedor</span>
+                                </span>
+                            @else
+                                <i class="bi bi-shop me-2 fs-4 text-primary"></i>
+                                <span class="fs-5 fw-bold text-dark">
+                                    {{ $logoSettings['site_name'] }} <span class="fs-6 fw-normal text-secondary">Vendedor</span>
+                                </span>
+                            @endif
                         </a>
                     </div>
 
@@ -185,9 +197,21 @@
     <div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="sellerSidebar" aria-labelledby="sellerSidebarLabel">
         {{-- Offcanvas Header --}}
             <div class="offcanvas-header border-bottom">
-                <h5 class="offcanvas-title fs-5 fw-bold" id="sellerSidebarLabel">
-                    <a href="/" class="text-decoration-none text-dark">
-                        {{ config('app.name') }} <span class="fs-6 fw-normal text-secondary">Vendedor</span>
+                <h5 class="offcanvas-title" id="sellerSidebarLabel">
+                    <a href="/" class="d-flex align-items-center text-decoration-none">
+                        @if(!empty($logoSettings['logo_svg']))
+                            <div class="logo-svg-container me-2" style="width: 36px; height: 36px;">
+                                {!! $logoSettings['logo_svg'] !!}
+                            </div>
+                            <span class="fs-5 fw-bold text-dark">
+                                {{ $logoSettings['site_name'] }} <span class="fs-6 fw-normal text-secondary">Vendedor</span>
+                            </span>
+                        @else
+                            <i class="bi bi-shop me-2 fs-4 text-primary"></i>
+                            <span class="fs-5 fw-bold text-dark">
+                                {{ $logoSettings['site_name'] }} <span class="fs-6 fw-normal text-secondary">Vendedor</span>
+                            </span>
+                        @endif
                     </a>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
