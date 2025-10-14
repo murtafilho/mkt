@@ -2,12 +2,12 @@
 
 @section('title', 'Editar Produto')
 
-@section('page-content')
-    @section('header', 'Editar Produto')
+@section('header', 'Editar Produto')
 
+@section('page-content')
     <div class="container-fluid py-4">
         {{-- Header com ações --}}
-        <div class="d-flex flex-column d-flex-md-row align-items-start align-items-md-center justify-content-between mb-4 gap-3">
+        <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-4 gap-3">
             <div>
                 <h1 class="h2 fw-bold text-dark mb-1">Editar Produto</h1>
                 <p class="text-muted mb-0">{{ $product->name }}</p>
@@ -291,7 +291,7 @@
                             <div class="col-12 col-md-4">
                                 <span class="text-secondary">Margem de Lucro:</span>
                                 <span class="ms-2 fw-bold"
-                                      :class="margin >= ? 'text-success' : 'text-danger'"
+                                      :class="margin >= 0 ? 'text-success' : 'text-danger'"
                                       x-text="formatPercent(margin)"></span>
                             </div>
                             <div class="col-12 col-md-4">
@@ -301,7 +301,7 @@
                             <div class="col-12 col-md-4">
                                 <span class="text-secondary">Lucro Estimado:</span>
                                 <span class="ms-2 fw-bold"
-                                      :class="profit >= ? 'text-success' : 'text-danger'"
+                                      :class="profit >= 0 ? 'text-success' : 'text-danger'"
                                       x-text="formatCurrency(profit)"></span>
                             </div>
                         </div>
