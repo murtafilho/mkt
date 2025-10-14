@@ -9,7 +9,7 @@
     {{-- Welcome Message --}}
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card border-0 shadow-sm bg-gradient" style="background: linear-gradient(135deg, rgba(var(--bs-primary-rgb), 0.1) 0%, rgba(var(--bs-secondary-rgb), 0.1) 100%);">
+            <div class="card border-0 shadow-sm bg-gradient">
                 <div class="card-body p-4">
                     <h3 class="card-title mb-2 h4 fw-bold">
                         <i class="bi bi-sun me-2 text-warning"></i>
