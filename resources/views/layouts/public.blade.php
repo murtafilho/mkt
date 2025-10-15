@@ -23,7 +23,7 @@
                         {{ config('app.name') }}
                     </h5>
                     <p class="small mb-3">
-                        Onde o comércio tem rosto e a economia tem coração.
+                        Favorencendo a vocação e o comércio local.
                         Conectando vendedores locais com consumidores conscientes.
                     </p>
                     <div class="d-flex gap-3">

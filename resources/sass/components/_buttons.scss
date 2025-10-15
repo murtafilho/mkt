@@ -8,6 +8,7 @@
     justify-content: flex-end;
     flex-wrap: nowrap;
     width: 100%;
+    overflow: visible; // Permitir que badges fiquem visíveis fora do container
 
     @media (max-width: 991.98px) {
         gap: 0.75rem;

@@ -2,7 +2,11 @@
   <!-- Fundo branco com bordas arredondadas -->
   <rect x="0" y="0" width="150" height="150" fill="#ffffff" rx="20"/>
 
-  <!-- Logo original do banco de dados -->
+  <!-- Logo original do banco de dados com padding de 10px -->
+  <g transform="translate(10, 10) scale(0.867, 0.867)"  clip-path="url(#padding-clip)">
+    <clipPath id="padding-clip">
+      <rect x="0" y="0" width="150" height="150"/>
+    </clipPath>
   <defs>
     <clipPath id="6a074cd9f2">
       <path d="M 0 0 L 150 0 L 150 150 L 0 150 Z M 0 0 " clip-rule="nonzero"/>

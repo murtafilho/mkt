@@ -52,7 +52,7 @@ Acompanhar Meu Pedido
 
 Agradecemos pela sua compra e por apoiar o comércio local!
 
-**Onde o comércio tem rosto e a economia tem coração**
+**Favorencendo a vocação e o comércio local**
 
 Atenciosamente,<br>
 Equipe {{ config('app.name') }}

@@ -16,6 +16,7 @@
     align-items: center;
     justify-content: center;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1; // Z-index baixo para não interferir com o badge
 
     i {
         font-size: 1.5rem;
@@ -25,11 +26,9 @@
     &:hover {
         background: rgba($primary, 0.1);
         border-color: rgba($primary, 0.2);
-        // Flat: sem movimento vertical
 
         i {
             color: $primary;
-            // Flat: sem scale no ícone
         }
     }
 
@@ -39,7 +38,7 @@
     }
 }
 
-// Cart Badge (contador)
+// Cart Badge (contador) - Apenas correção do z-index
 .cart-badge {
     position: absolute;
     top: -4px;
@@ -57,6 +56,18 @@
     padding: 0 0.375rem;
     box-shadow: 0 2px 8px rgba($primary, 0.4);
     animation: badgePulse 0.3s ease-out;
+    z-index: 99999; // Z-index extremamente alto para ficar sempre na frente
+    border: 2px solid white;
+
+    // Ajuste para telas menores
+    @media (max-width: 767.98px) {
+        top: -3px;
+        right: -3px;
+        min-width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+        border-radius: 9px;
+    }
 }
 
 @keyframes badgePulse {

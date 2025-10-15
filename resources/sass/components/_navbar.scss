@@ -42,6 +42,21 @@ header.sticky-top {
     background-color: #ffffff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.3s ease;
+    overflow: visible; // Permitir que badges fiquem visíveis
+
+    // Garantir que o container do header também permita overflow
+    .container {
+        overflow: visible;
+    }
+
+    // Garantir que as colunas também permitam overflow
+    .row {
+        overflow: visible;
+
+        >[class*="col-"] {
+            overflow: visible;
+        }
+    }
 
     &.scrolled {
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
@@ -166,4 +181,3 @@ header.sticky-top {
         }
     }
 }
-

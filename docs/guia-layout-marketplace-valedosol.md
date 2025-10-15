@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="col-md-6 order-2 order-md-1">
                 <div class="hero-content">
                     <h1 class="display-4 fw-bold mb-3">
-                        Onde o comércio tem rosto e a economia tem coração
+                        Favorencendo a vocação e o comércio local
                     </h1>
                     <p class="lead text-muted mb-4">
                         Descubra produtos e serviços dos seus vizinhos — 

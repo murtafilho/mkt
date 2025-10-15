@@ -64,8 +64,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('headerCategories', $headerCategories);
         });
 
-        // Share logo settings with header and dashboard layouts
-        View::composer(['layouts.partials.header', 'layouts.admin', 'layouts.seller'], function ($view) {
+        // Share logo settings with header, dashboard, and guest layouts
+        View::composer(['layouts.partials.header', 'layouts.admin', 'layouts.seller', 'layouts.guest'], function ($view) {
             $settingsService = app(\App\Services\SettingsService::class);
 
             $logoSettings = [

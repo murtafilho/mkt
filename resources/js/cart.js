@@ -34,8 +34,8 @@ const Cart = {
         this.els.footer = document.getElementById('cart-footer');
         this.els.subtotal = document.getElementById('cart-subtotal');
         this.els.headerCount = document.getElementById('cart-header-count');
-        this.els.headerBadge = document.querySelector('[data-bs-target="#cartOffcanvas"] .badge');
-
+        this.els.headerBadge = document.querySelector('.cart-badge');
+        
         // Event listener para abrir offcanvas
         const cartOffcanvas = document.getElementById('cartOffcanvas');
         if (cartOffcanvas) {
@@ -52,6 +52,9 @@ const Cart = {
                 }
             });
         }
+        
+        // Carregar carrinho na inicialização para atualizar badge
+        this.loadCart();
     },
 
     // Mostrar estado
@@ -272,15 +275,21 @@ const Cart = {
 
     // Atualizar badge
     updateBadge(count) {
+        console.log('🏷️ updateBadge:', count);
+        
         if (count > 0) {
-            this.els.headerCount.textContent = count;
-            this.els.headerCount.style.display = 'inline';
+            if (this.els.headerCount) {
+                this.els.headerCount.textContent = count;
+                this.els.headerCount.style.display = 'inline';
+            }
             if (this.els.headerBadge) {
                 this.els.headerBadge.textContent = count;
                 this.els.headerBadge.style.display = 'inline';
             }
         } else {
-            this.els.headerCount.style.display = 'none';
+            if (this.els.headerCount) {
+                this.els.headerCount.style.display = 'none';
+            }
             if (this.els.headerBadge) {
                 this.els.headerBadge.style.display = 'none';
             }

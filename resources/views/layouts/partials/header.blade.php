@@ -28,17 +28,18 @@
             <div class="col-6 col-lg-3">
                 <div class="user-actions">
                     {{-- Cart Button - Bootstrap Offcanvas --}}
-                    <button
-                        type="button"
-                        class="btn btn-icon-cart position-relative"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#cartOffcanvas"
-                        aria-controls="cartOffcanvas"
-                        aria-label="Carrinho de compras">
-                        <i class="bi bi-cart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                              style="font-size: 0.7rem; display: none;">0</span>
-                    </button>
+                    <div class="position-relative d-inline-block">
+                        <button
+                            type="button"
+                            class="btn btn-icon-cart"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#cartOffcanvas"
+                            aria-controls="cartOffcanvas"
+                            aria-label="Carrinho de compras">
+                            <i class="bi bi-cart"></i>
+                        </button>
+                        <span class="cart-badge" style="display: none;">0</span>
+                    </div>
 
                     {{-- User Menu --}}
                     @auth
