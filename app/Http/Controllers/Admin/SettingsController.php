@@ -29,7 +29,9 @@ class SettingsController extends Controller
                 'site_description' => $this->settingsService->get('site_description', ''),
             ],
             'branding' => [
-                'logo_svg' => $this->settingsService->get('logo_svg', ''),
+                'logo_svg' => file_exists(public_path('images/logo-principal.svg'))
+                    ? file_get_contents(public_path('images/logo-principal.svg'))
+                    : '',
                 'logo_width' => $this->settingsService->get('logo_width', '180'),
                 'logo_height' => $this->settingsService->get('logo_height', '60'),
             ],
@@ -97,21 +99,21 @@ class SettingsController extends Controller
                 }
             }
 
-            // Handle logo SVG upload
+            // Handle logo SVG upload - Save to static file
             if ($request->hasFile('logo_svg_file')) {
                 $svgContent = file_get_contents($request->file('logo_svg_file')->getRealPath());
 
                 // Basic SVG validation
                 if (strpos($svgContent, '<svg') !== false) {
-                    $this->settingsService->set('logo_svg', $svgContent, 'string', 'branding');
+                    file_put_contents(public_path('images/logo-principal.svg'), $svgContent);
                 } else {
                     return back()
                         ->withInput()
                         ->with('error', 'Arquivo SVG inválido. Certifique-se de fazer upload de um arquivo SVG válido.');
                 }
             } elseif (isset($validated['logo_svg'])) {
-                // Save logo SVG from textarea
-                $this->settingsService->set('logo_svg', $validated['logo_svg'], 'string', 'branding');
+                // Save logo SVG from textarea to static file
+                file_put_contents(public_path('images/logo-principal.svg'), $validated['logo_svg']);
             }
 
             foreach (['logo_width', 'logo_height'] as $key) {
