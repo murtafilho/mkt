@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\SellerController as AdminSellerController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -32,6 +33,10 @@ Route::get('/api/search/suggestions', [SearchController::class, 'suggestions'])-
 // Product catalog (public)
 Route::get('/produtos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/produtos/{product:slug}', [ProductController::class, 'show'])->name('products.show');
+
+// Categories (public)
+Route::get('/categorias', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categorias/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 
 // Shopping cart (public)
 Route::prefix('cart')->name('cart.')->group(function () {

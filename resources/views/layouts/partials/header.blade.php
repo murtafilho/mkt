@@ -6,7 +6,7 @@
             <div class="col-6 col-lg-3">
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
                     {{-- Logo Estático --}}
-                    <img src="{{ asset('images/logo-principal.svg') }}"
+                    <img src="{{ asset('images/logo-principal.png') }}"
                          alt="{{ config('app.name') }}"
                          style="width: 48px; height: 48px;"
                          class="me-2">
@@ -17,7 +17,7 @@
             </div>
 
             {{-- Search Bar (Desktop: 6 cols ~50%) - Desktop Only --}}
-            <div class="col-lg-6 d-none d-lg-block">
+            <div class="col-lg-6 d-none d-lg-block d-flex align-items-center">
                 @include('components.search-bar')
             </div>
 

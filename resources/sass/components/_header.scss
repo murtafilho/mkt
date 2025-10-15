@@ -2,14 +2,14 @@
  * Icon Buttons - Minimalista 2025
  */
 
-// Cart Icon Button - Flat Modern 2025
+// Cart Icon Button - Flat Modern 2025 + Pill Shape
 .btn-icon-cart {
     position: relative;
     background: transparent;
     border: 2px solid transparent;
     color: $dark;
     padding: 0.625rem;
-    border-radius: 50%;
+    border-radius: 50rem; // Pill shape
     width: 44px;
     height: 44px;
     display: inline-flex;

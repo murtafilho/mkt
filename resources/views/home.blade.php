@@ -149,7 +149,7 @@
                 <p class="text-muted">Do premium ao popular, tudo em um lugar</p>
             </div>
             <div class="col-md-4 text-md-end">
-                <a href="{{ route('products.index') }}" class="btn btn-outline-primary">
+                <a href="{{ route('categories.index') }}" class="btn btn-outline-primary">
                     Ver Todas <i class="bi bi-arrow-right ms-2"></i>
                 </a>
             </div>

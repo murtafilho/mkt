@@ -8,7 +8,7 @@
         <div class="mb-4">
             <a href="/" class="text-decoration-none d-flex align-items-center justify-content-center">
                 {{-- Logo Estático --}}
-                <img src="{{ asset('images/logo-principal.svg') }}"
+                <img src="{{ asset('images/logo-principal.png') }}"
                      alt="{{ config('app.name') }}"
                      style="width: 48px; height: 48px;"
                      class="me-2">

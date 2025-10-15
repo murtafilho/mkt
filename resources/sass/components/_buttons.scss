@@ -1,4 +1,12 @@
 /**
+ * Global Button Styles - Pill Shape 2025
+ * Aplicar formato pill a todos os botões da aplicação
+ */
+.btn {
+    border-radius: 50rem !important; // Pill shape global
+}
+
+/**
  * User Actions Buttons - Distribuição Equilibrada 2025
  */
 .user-actions {
@@ -24,7 +32,7 @@
     color: $dark;
     background-color: transparent;
     padding: 0.625rem 1rem;
-    border-radius: 0.25rem;
+    border-radius: 50rem; // Pill shape
     font-weight: $font-weight-medium;
     transition: all 0.3s ease;
     position: relative;
@@ -82,7 +90,7 @@
 
 .btn-user-menu {
     padding: 0.625rem 1rem;
-    border-radius: 0.25rem;
+    border-radius: 50rem; // Pill shape
     font-weight: $font-weight-medium;
     transition: all 0.3s ease;
     flex-shrink: 0;
@@ -115,7 +123,7 @@
     }
 }
 
-// Botões primários - Flat Modern 2025 (WCAG 2.2)
+// Botões primários - Flat Modern 2025 (WCAG 2.2) + Pill Shape
 .btn-primary {
     color: #ffffff !important;
     background-color: $primary;
@@ -128,6 +136,7 @@
     justify-content: center;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border-width: 2px;
+    border-radius: 50rem; // Pill shape
 
     &:hover {
         color: #ffffff !important;
@@ -166,7 +175,7 @@
     }
 }
 
-// Botões secondary - Flat Modern 2025
+// Botões secondary - Flat Modern 2025 + Pill Shape
 .btn-secondary {
     color: #ffffff !important;
     background-color: $secondary;
@@ -174,6 +183,7 @@
     font-weight: $font-weight-semibold;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border-width: 2px;
+    border-radius: 50rem; // Pill shape
 
     &:hover {
         color: #ffffff !important;
@@ -206,7 +216,7 @@
     }
 }
 
-// Botões outline - Flat Modern 2025
+// Botões outline - Flat Modern 2025 + Pill Shape
 .btn-outline-secondary {
     color: $secondary;
     background-color: transparent;
@@ -214,6 +224,7 @@
     font-weight: $font-weight-medium;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     border-width: 2px;
+    border-radius: 50rem; // Pill shape
 
     &:hover {
         color: #ffffff !important;
@@ -260,4 +271,3 @@
         transform: scale(1);
     }
 }
-

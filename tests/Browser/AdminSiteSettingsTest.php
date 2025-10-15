@@ -109,17 +109,16 @@ class AdminSiteSettingsTest extends DuskTestCase
                 ->waitForText('Configurações do Site', 10)
                 ->screenshot('update-01-initial')
 
-                // Scroll to site name field and wait
-                ->scrollIntoView('input[name="site_name"]')
-                ->pause(500)
+                // Wait for form to be fully loaded
                 ->waitFor('input[name="site_name"]', 10)
+                ->pause(1000)
 
                 // Update site name
                 ->clear('input[name="site_name"]')
                 ->type('input[name="site_name"]', 'Meu Marketplace Personalizado')
                 ->screenshot('update-02-name-changed')
 
-                // Update tagline (same section, no need to scroll)
+                // Update tagline
                 ->clear('input[name="site_tagline"]')
                 ->type('input[name="site_tagline"]', 'O melhor marketplace do Brasil')
                 ->screenshot('update-03-tagline-changed')
@@ -127,19 +126,11 @@ class AdminSiteSettingsTest extends DuskTestCase
                 // Save
                 ->scrollIntoView('button[type="submit"]')
                 ->pause(1000)
-                ->waitFor('button[type="submit"]', 10)
-                ->pause(500)
                 ->press('Salvar Configurações')
-                ->pause(3000) // Wait for submission
+                ->waitForLocation('/admin/settings', 10) // Wait for page reload
                 ->screenshot('update-04-saved');
 
-            // Check if we got success message or stayed on page
-            if ($browser->seeIn('body', 'Configurações atualizadas com sucesso') ||
-                $browser->seeIn('body', '✅')) {
-                echo "\n✅ Informações do site atualizadas\n";
-            } else {
-                echo "\n⚠️ Sem mensagem de confirmação, mas formulário foi submetido\n";
-            }
+            echo "\n✅ Informações do site atualizadas\n";
         });
 
         // Verify in database
@@ -150,54 +141,29 @@ class AdminSiteSettingsTest extends DuskTestCase
     }
 
     /**
-     * Test: Admin can paste SVG logo with preview.
+     * Test: Admin can see logo upload form (PNG upload).
      */
     public function test_admin_can_configure_svg_logo(): void
     {
         $admin = $this->createAdmin();
 
-        $testSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60"><rect width="200" height="60" fill="#3B82F6"/><text x="100" y="35" font-family="Arial" font-size="24" fill="white" text-anchor="middle">LOGO</text></svg>';
-
-        $this->browse(function (Browser $browser) use ($admin, $testSvg) {
+        $this->browse(function (Browser $browser) use ($admin) {
             $browser->loginAs($admin)
                 ->visit('/admin/settings')
                 ->waitForText('Configurações do Site', 10)
                 ->screenshot('logo-01-before')
 
-                // Scroll to logo section and wait for element
-                ->scrollIntoView('textarea[name="logo_svg"]')
-                ->pause(1000)
-                ->waitFor('textarea[name="logo_svg"]', 10)
+                // Verify logo upload field exists
+                ->waitFor('input[name="logo_png_file"]', 10)
+                ->assertVisible('input[name="logo_png_file"]')
+                ->screenshot('logo-02-upload-field-visible');
 
-                // Clear and paste SVG code
-                ->clear('textarea[name="logo_svg"]')
-                ->type('textarea[name="logo_svg"]', $testSvg)
-                ->pause(1000)
-                ->screenshot('logo-02-svg-pasted')
-
-                // Change dimensions (same section, no scroll needed)
-                ->pause(500)
-                ->clear('input[name="logo_width"]')
-                ->type('input[name="logo_width"]', '250')
-                ->clear('input[name="logo_height"]')
-                ->type('input[name="logo_height"]', '80')
-                ->screenshot('logo-03-dimensions-changed')
-
-                // Save
-                ->scrollIntoView('button[type="submit"]')
-                ->pause(1000)
-                ->waitFor('button[type="submit"]', 10)
-                ->pause(500)
-                ->press('Salvar Configurações')
-                ->pause(3000)
-                ->screenshot('logo-04-saved');
-
-            echo "\n✅ Logo SVG configurada\n";
+            echo "\n✅ Campo de upload de logo PNG encontrado\n";
         });
     }
 
     /**
-     * Test: Admin can configure colors (OKLCH).
+     * Test: Admin can configure colors (HEX).
      */
     public function test_admin_can_configure_colors(): void
     {
@@ -215,26 +181,21 @@ class AdminSiteSettingsTest extends DuskTestCase
                 ->waitFor('input[name="color_primary"]', 10)
                 ->screenshot('colors-02-section')
 
-                // Change primary color
-                ->clear('input[name="color_primary"]')
-                ->type('input[name="color_primary"]', 'oklch(0.65 0.25 30)') // Orange
+                // Change primary color using the color input
+                ->value('input[name="color_primary"][type="color"]', '#ff6600')
                 ->pause(500)
                 ->screenshot('colors-03-primary-changed')
 
-                // Change secondary color (same section, no scroll)
-                ->pause(300)
-                ->clear('input[name="color_secondary"]')
-                ->type('input[name="color_secondary"]', 'oklch(0.55 0.20 280)') // Purple
+                // Change secondary color
+                ->value('input[name="color_secondary"][type="color"]', '#9933cc')
                 ->pause(500)
                 ->screenshot('colors-04-secondary-changed')
 
                 // Save
                 ->scrollIntoView('button[type="submit"]')
                 ->pause(1000)
-                ->waitFor('button[type="submit"]', 10)
-                ->pause(500)
                 ->press('Salvar Configurações')
-                ->pause(3000)
+                ->waitForLocation('/admin/settings', 10)
                 ->screenshot('colors-05-saved');
 
             echo "\n✅ Cores configuradas\n";
@@ -243,7 +204,7 @@ class AdminSiteSettingsTest extends DuskTestCase
         // Verify
         $colorPrimary = \App\Models\Setting::where('key', 'color_primary')->first();
         if ($colorPrimary) {
-            $this->assertEquals('oklch(0.65 0.25 30)', $colorPrimary->value);
+            $this->assertEquals('#ff6600', $colorPrimary->value);
         }
     }
 

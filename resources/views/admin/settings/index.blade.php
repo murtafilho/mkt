@@ -119,32 +119,35 @@
                         <div class="card-body p-4">
                             <div class="row g-4">
                                 <div class="col-12">
-                                    <label for="logo_svg" class="form-label fw-medium">Logo SVG</label>
-                                    <textarea name="logo_svg"
-                                              id="logo_svg"
-                                              rows="6"
-                                              x-model="logoSvg"
-                                              placeholder="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'>...</svg>"
-                                              class="form-control font-monospace small">{{ old('logo_svg', $settings['branding']['logo_svg']) }}</textarea>
-                                    <div class="form-text">Cole o código SVG diretamente ou use o upload abaixo</div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="logo_svg_file" class="form-label fw-medium">Upload de Arquivo SVG</label>
+                                    <label for="logo_png_file" class="form-label fw-medium">Logo PNG</label>
                                     <input type="file"
-                                           name="logo_svg_file"
-                                           id="logo_svg_file"
-                                           accept=".svg"
-                                           @change="handleSvgUpload($event)"
+                                           name="logo_png_file"
+                                           id="logo_png_file"
+                                           accept=".png"
+                                           @change="handlePngUpload($event)"
                                            class="form-control">
-                                    <div class="form-text">Máximo: 512KB</div>
+                                    <div class="form-text">Tamanho recomendado: 200x200px. Máximo: 2MB</div>
                                 </div>
 
-                                <div class="col-12" x-show="logoSvg" x-cloak>
+                                @if($settings['branding']['logo_png'])
+                                <div class="col-12" x-show="!logoPreview">
                                     <div class="card bg-light">
                                         <div class="card-body">
-                                            <p class="small text-muted mb-2">Preview do Logo:</p>
-                                            <div x-html="logoSvg" class="bg-white p-3 rounded border"></div>
+                                            <p class="small text-muted mb-2">Logo Atual:</p>
+                                            <img src="{{ $settings['branding']['logo_png'] }}" alt="Logo" class="img-fluid" style="max-width: 200px; background: white; padding: 1rem; border-radius: 0.5rem;">
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+                                <div class="col-12" x-show="logoPreview" x-cloak>
+                                    <div class="card bg-light border-success">
+                                        <div class="card-body">
+                                            <p class="small text-success mb-2">
+                                                <i class="bi bi-check-circle me-1"></i>
+                                                Preview do Novo Logo:
+                                            </p>
+                                            <img :src="logoPreview" alt="Preview" class="img-fluid" style="max-width: 200px; background: white; padding: 1rem; border-radius: 0.5rem;">
                                         </div>
                                     </div>
                                 </div>
@@ -312,54 +315,46 @@
     <script>
     function settingsForm() {
         return {
-            logoSvg: @js(old('logo_svg', $settings['branding']['logo_svg'])),
+            logoPreview: null,
 
-            // Handle SVG file upload
-            handleSvgUpload(event) {
+            // Handle PNG file upload
+            handlePngUpload(event) {
                 const file = event.target.files[0];
 
                 if (!file) {
+                    this.logoPreview = null;
                     return;
                 }
 
                 // Validate file type
-                if (!file.name.endsWith('.svg')) {
-                    alert('Por favor, selecione um arquivo SVG válido.');
+                if (!file.type.match('image/png')) {
+                    alert('Por favor, selecione um arquivo PNG válido.');
                     event.target.value = '';
+                    this.logoPreview = null;
                     return;
                 }
 
-                // Validate file size (512KB = 524288 bytes)
-                if (file.size > 524288) {
-                    alert('O arquivo SVG é muito grande. Tamanho máximo: 512KB.');
+                // Validate file size (2MB = 2097152 bytes)
+                if (file.size > 2097152) {
+                    alert('O arquivo PNG é muito grande. Tamanho máximo: 2MB.');
                     event.target.value = '';
+                    this.logoPreview = null;
                     return;
                 }
 
-                // Read file content and update preview
+                // Read file and show preview
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    const svgContent = e.target.result;
-
-                    // Validate SVG content
-                    if (svgContent.indexOf('<svg') === -1) {
-                        alert('Arquivo inválido. Certifique-se de que é um SVG válido.');
-                        event.target.value = '';
-                        return;
-                    }
-
-                    // Update preview
-                    this.logoSvg = svgContent;
+                    this.logoPreview = e.target.result;
                 };
-
-                reader.readAsText(file);
+                reader.readAsDataURL(file);
             },
 
             init() {
                 // Range slider for opacity
                 const opacitySlider = document.getElementById('hero_opacity');
                 const opacityValue = document.getElementById('opacity-value');
-                
+
                 if (opacitySlider && opacityValue) {
                     opacitySlider.addEventListener('input', function() {
                         opacityValue.textContent = this.value;

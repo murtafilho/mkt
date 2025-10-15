@@ -1,6 +1,6 @@
 /**
- * Modern Search Bar - Marketplace 2025 Standards
- * Inspirado em: Amazon, Mercado Livre, Shopify
+ * Search Bar Component - Bootstrap Native Design
+ * Using Bootstrap 5.3 native input-group with pill shape
  */
 
 .search-form {
@@ -8,83 +8,26 @@
     width: 100%;
     max-width: 100%;
 
+    // Bootstrap native input-group styling
     .input-group-lg {
-        position: relative;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-        border-radius: 50rem; // Pill shape (tendência 2025)
-        overflow: hidden;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        width: 100%;
-        max-width: 100%;
-        display: flex;
-        background: white;
 
-        &:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-        }
-
-        &:focus-within {
-            box-shadow: 0 4px 20px rgba($primary, 0.25);
-            transform: translateY(-1px);
-        }
-
+        // Use Bootstrap's native styling with minimal customizations
         .form-control {
-            border: none;
-            padding: 0.625rem 1.5rem; // Altura 44px (padrão WCAG)
-            padding-right: 3.5rem; // Espaço para ícone de loading
-            font-size: 1rem;
-            background-color: transparent;
-            transition: all 0.2s ease;
-            flex: 1;
-            min-width: 0;
-            border-radius: 50rem 0 0 50rem;
-            height: 44px;
+            // Remove default border to create seamless pill
+            border-right: none;
 
             &:focus {
                 box-shadow: none;
-                outline: none;
-                background-color: transparent;
-            }
-
-            &::placeholder {
-                color: $gray-500;
-                font-weight: $font-weight-normal;
+                border-color: $primary;
             }
         }
 
         .btn-primary {
-            border: none;
-            padding: 0.625rem 1.75rem; // Altura 44px (alinhado)
-            font-weight: $font-weight-semibold;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            flex-shrink: 0;
-            white-space: nowrap;
-            color: #ffffff !important;
-            background-color: $primary;
-            border-radius: 0 50rem 50rem 0;
-            min-width: 100px;
-            height: 44px;
-
-            &:hover {
-                color: #ffffff !important;
-                background-color: darken($primary, 8%);
-                transform: scale(1.02);
-            }
+            // Add subtle border to connect with input
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
 
             &:focus {
-                color: #ffffff !important;
-                background-color: darken($primary, 8%);
-                box-shadow: 0 0 0 4px rgba($primary, 0.2);
-            }
-
-            &:active {
-                color: #ffffff !important;
-                background-color: darken($primary, 12%);
-                transform: scale(0.98);
-            }
-
-            i {
-                font-size: 1.125rem;
+                box-shadow: none;
             }
         }
     }
@@ -238,29 +181,6 @@
  */
 @media (max-width: 991.98px) {
     .search-form {
-        .input-group-lg {
-            border-radius: 50rem;
-
-            .form-control {
-                font-size: 0.9375rem;
-                padding: 0.875rem 1.25rem;
-                padding-right: 3rem;
-            }
-
-            .btn-primary {
-                padding: 0.875rem 1.25rem;
-                min-width: auto;
-
-                span {
-                    display: none !important;
-                }
-
-                i {
-                    margin: 0 !important;
-                }
-            }
-        }
-
         .search-suggestions {
             border-radius: 0.75rem;
 

@@ -1,9 +1,8 @@
-{{-- Search Bar Component with Autocomplete --}}
+{{-- Search Bar Component with Autocomplete - Pill Design --}}
 <form action="{{ route('products.index') }}" method="GET" class="search-form" x-data="searchAutocomplete()">
-    <div class="input-group input-group-lg">
-        {{-- Search Input --}}
+    <div class="input-group rounded-pill overflow-hidden" style="border: 1px solid #dee2e6;">
         <input type="search" 
-               class="form-control" 
+               class="form-control border-0" 
                name="q"
                placeholder="O que você procura? Ex: jardineiro, marmita caseira..." 
                autocomplete="off"
@@ -12,10 +11,10 @@
                @input.debounce.300ms="performSearch()"
                @focus="showSuggestions = true"
                aria-label="Campo de busca"
-               value="{{ request('q') }}">
+               value="{{ request('q') }}"
+               style="border-right: none !important;">
 
-        {{-- Search Button --}}
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary border-0" type="submit" style="border-left: 1px solid rgba(255,255,255,0.2) !important;">
             <i class="bi bi-search"></i>
             <span class="d-none d-md-inline ms-2">Buscar</span>
         </button>

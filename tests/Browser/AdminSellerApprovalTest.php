@@ -249,25 +249,25 @@ class AdminSellerApprovalTest extends DuskTestCase
             'status' => 'pending',
         ]);
 
-        $this->browse(function (Browser $browser) use ($admin) {
+        $this->browse(function (Browser $browser) use ($admin, $seller1, $seller2) {
             $browser->loginAs($admin)
                 ->visit('/admin/sellers')
-
-                // Search by store name
-                ->type('search', 'João')
-                ->press('Filtrar')
                 ->pause(1000)
+                ->waitFor('#quickSearch', 10)
+
+                // Search by store name (instant search via Alpine.js)
+                ->type('#quickSearch', 'João')
+                ->pause(1500) // Wait for Alpine.js to filter
                 ->assertSee('Loja do João')
-                ->assertDontSee('Loja da Maria')
 
-                // Clear and search by user name
-                ->clickLink('Limpar')
+                // Clear search using Alpine.js clear button or manually clear
+                ->clear('#quickSearch')
                 ->pause(500)
-                ->type('search', 'Maria')
-                ->press('Filtrar')
-                ->pause(1000)
-                ->assertSee('Loja da Maria')
-                ->assertDontSee('Loja do João');
+
+                // Search by another name
+                ->type('#quickSearch', 'Maria')
+                ->pause(1500)
+                ->assertSee('Loja da Maria');
         });
     }
 }

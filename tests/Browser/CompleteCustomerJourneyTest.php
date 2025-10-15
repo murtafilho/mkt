@@ -147,61 +147,18 @@ class CompleteCustomerJourneyTest extends DuskTestCase
             echo "✅ ETAPA 2: Cadastro realizado\n";
 
             // ========================================
-            // ETAPA 3: VERIFICAR EMAIL (MAILPIT)
+            // ETAPA 3: VERIFICAR EMAIL (Simulado para teste)
             // ========================================
-            // Mailpit está em http://localhost:8025
-            // Abre em nova aba para verificar email
-
-            $browser->pause(2000);
-
-            // Verificar se há link de verificação na sessão ou ir para Mailpit
             echo "\n📧 ETAPA 3: Verificação de email\n";
-            echo "   → Mailpit: http://localhost:8025\n";
             echo '   → Email: '.$customerEmail."\n";
 
-            // Abrir Mailpit em nova janela
-            $browser->driver->executeScript("window.open('http://localhost:8025', '_blank');");
-            $browser->pause(2000);
-
-            // Alternar para janela do Mailpit
-            $windows = $browser->driver->getWindowHandles();
-            if (count($windows) > 1) {
-                $browser->driver->switchTo()->window($windows[1]);
-                $browser->screenshot('journey-05-mailpit-inbox')
-                    ->pause(2000);
-
-                // Procurar email de verificação
-                // Clicar no email mais recente
-                $browser->click('div[class*="message"]:first-child') // Primeiro email
-                    ->pause(1000)
-                    ->screenshot('journey-06-verification-email');
-
-                // Procurar link de verificação no iframe do email
-                $browser->withinFrame('iframe', function ($iframe) {
-                    $iframe->screenshot('journey-07-email-content');
-
-                    // Tentar encontrar link "Verify Email Address"
-                    $verifyLinks = $iframe->elements('a');
-                    if (count($verifyLinks) > 0) {
-                        echo "   ✅ Link de verificação encontrado\n";
-                    }
-                });
-
-                // Pegar URL de verificação do email
-                // Nota: Mailpit não permite clicar diretamente, então vamos simular
-                // que o usuário está verificado
-
-                // Voltar para janela principal
-                $browser->driver->switchTo()->window($windows[0]);
-                $browser->pause(1000);
-            }
-
-            // ALTERNATIVA: Verificar diretamente no banco (para teste)
+            // Para testes E2E, verificar diretamente no banco
+            // Em produção, o usuário clicaria no link do email
             $user = User::where('email', $customerEmail)->first();
             if ($user) {
                 $user->email_verified_at = now();
                 $user->save();
-                echo "   ✅ Email verificado (via banco de testes)\n";
+                echo "   ✅ Email verificado (simulado para teste)\n";
             }
 
             echo "✅ ETAPA 3: Email verificado\n";
@@ -418,56 +375,16 @@ class CompleteCustomerJourneyTest extends DuskTestCase
             $afterRegisterUrl = $browser->driver->getCurrentURL();
             echo "\n📍 Após registro: ".$afterRegisterUrl."\n";
 
-            // Should be logged in now
-            $browser->assertSee($customerName)
-                ->screenshot('register-04-logged-in');
-
-            echo "✅ Usuário registrado e autenticado\n";
+            // May be on verify-email page or logged in
+            echo "✅ Usuário registrado\n";
 
             // ========================================
-            // EMAIL VERIFICATION VIA MAILPIT
+            // EMAIL VERIFICATION (Simulado)
             // ========================================
-            echo "\n📧 Verificando email via Mailpit...\n";
+            echo "\n📧 Verificando email...\n";
 
-            // Open Mailpit in new window
-            $browser->driver->executeScript("window.open('http://localhost:8025', 'mailpit');");
-            $browser->pause(2000);
-
-            $windows = $browser->driver->getWindowHandles();
-            if (count($windows) > 1) {
-                // Switch to Mailpit window
-                $browser->driver->switchTo()->window($windows[1]);
-                $browser->screenshot('mailpit-01-inbox')
-                    ->pause(2000);
-
-                // Search for email
-                $browser->type('input[type="search"]', $customerEmail)
-                    ->pause(1000)
-                    ->screenshot('mailpit-02-search-email');
-
-                // Click on email
-                $browser->click('div[class*="message"]:first-child')
-                    ->pause(2000)
-                    ->screenshot('mailpit-03-email-opened');
-
-                // Get verification URL from email
-                try {
-                    // Try to find verification link in iframe
-                    $browser->withinFrame('iframe#preview-html', function ($frame) {
-                        $frame->screenshot('mailpit-04-email-content');
-                    });
-
-                    echo "   ✅ Email de verificação encontrado\n";
-                } catch (\Exception $e) {
-                    echo '   ⚠️  Não foi possível abrir email: '.$e->getMessage()."\n";
-                }
-
-                // Back to main window
-                $browser->driver->switchTo()->window($windows[0]);
-                $browser->pause(1000);
-            }
-
-            // For testing: Force email verification
+            // For E2E tests: Verify email directly in database
+            // In production, user would click link in email
             $user = User::where('email', $customerEmail)->first();
             if ($user && ! $user->email_verified_at) {
                 $user->email_verified_at = now();
@@ -475,7 +392,13 @@ class CompleteCustomerJourneyTest extends DuskTestCase
                 echo "   ✅ Email verificado (simulado para teste)\n";
             }
 
-            echo "✅ ETAPA 3: Email verificado\n";
+            // Visit homepage to see authenticated state
+            $browser->visit('/')
+                ->pause(1000)
+                ->assertSee($customerName)
+                ->screenshot('register-04-logged-in');
+
+            echo "✅ Usuário autenticado com email verificado\n";
         });
 
         // Verify in database
