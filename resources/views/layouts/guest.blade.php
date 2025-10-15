@@ -7,19 +7,14 @@
         {{-- Logo/Brand --}}
         <div class="mb-4">
             <a href="/" class="text-decoration-none d-flex align-items-center justify-content-center">
-                @if(!empty($logoSettings['logo_svg']))
-                    {{-- SVG Logo + Site Name --}}
-                    <div class="logo-svg-container me-2" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                        {!! $logoSettings['logo_svg'] !!}
-                    </div>
-                    <h1 class="display-6 fw-bold mb-0" style="color: #588c4c;">{{ $logoSettings['site_name'] }}</h1>
-                @else
-                    {{-- Fallback: Icon + Text --}}
-                    <h1 class="display-6 fw-bold mb-0" style="color: #588c4c;">
-                        <i class="bi bi-sun me-2"></i>
-                        {{ config('app.name') }}
-                    </h1>
-                @endif
+                {{-- Logo Estático --}}
+                <img src="{{ asset('images/logo-principal.svg') }}"
+                     alt="{{ config('app.name') }}"
+                     style="width: 48px; height: 48px;"
+                     class="me-2">
+                <h1 class="display-6 fw-bold mb-0" style="color: #588c4c;">
+                    {{ config('app.name') }}
+                </h1>
             </a>
         </div>
 

@@ -5,17 +5,14 @@
             {{-- Logo + Site Name (Mobile: 50% | Desktop: 3 cols ~25%) --}}
             <div class="col-6 col-lg-3">
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-                    @if(!empty($logoSettings['logo_svg']))
-                        {{-- SVG Logo + Site Name --}}
-                        <div class="logo-svg-container me-2" style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
-                            {!! $logoSettings['logo_svg'] !!}
-                        </div>
-                        <span class="site-name d-none d-md-inline" style="font-weight: 600; color: #588c4c; font-size: 1.5rem;">{{ $logoSettings['site_name'] }}</span>
-                    @else
-                        {{-- Fallback: Icon + Text --}}
-                        <i class="bi bi-shop me-2"></i>
-                        <span class="d-none d-md-inline" style="font-weight: 600; color: #588c4c; font-size: 1.5rem;">{{ $logoSettings['site_name'] }}</span>
-                    @endif
+                    {{-- Logo Estático --}}
+                    <img src="{{ asset('images/logo-principal.svg') }}"
+                         alt="{{ config('app.name') }}"
+                         style="width: 48px; height: 48px;"
+                         class="me-2">
+                    <span class="site-name d-none d-md-inline" style="font-weight: 600; color: #588c4c; font-size: 1.5rem;">
+                        {{ config('app.name') }}
+                    </span>
                 </a>
             </div>
 
